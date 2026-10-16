@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { resolveDistOutputDir } from './resolve-dist-output.mjs';
 
 const root = process.cwd();
-const dist = path.join(root, 'dist');
+const dist = resolveDistOutputDir(root);
 const key = process.env.INDEXNOW_KEY?.trim();
 const host = process.env.INDEXNOW_HOST?.trim() || 'nba2k27hack.net';
 
