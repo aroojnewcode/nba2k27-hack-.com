@@ -1,0 +1,97 @@
+.hero-image-slider {
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklch, var(--primary) 38%, var(--hero-purple-deep, #0a0614));
+  background: linear-gradient(
+    160deg,
+    var(--hero-purple-mid, #1a0d2e) 0%,
+    var(--hero-purple-base, #12081f) 55%,
+    var(--hero-purple-deep, #0a0614) 100%
+  );
+  padding: 0.5rem;
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--primary) 22%, transparent),
+    0 8px 24px color-mix(in oklch, #000 45%, transparent);
+}
+
+.hero-image-slider__carousel {
+  width: 100%;
+}
+
+.hero-image-slider__stage {
+  position: relative;
+}
+
+.hero-image-slider__viewport [data-slot='carousel-content'] {
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 0.35rem);
+}
+
+.hero-image-slider__figure {
+  aspect-ratio: 16 / 10;
+  margin: 0;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 0.35rem);
+  background: color-mix(in oklch, var(--hero-purple-mid, #1a0d2e) 88%, var(--primary) 12%);
+}
+
+.hero-image-slider__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  translate: 0 -50%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, #fff 28%, transparent);
+  background: color-mix(in oklch, #000 52%, transparent);
+  color: #fff;
+  box-shadow: 0 2px 8px color-mix(in oklch, #000 35%, transparent);
+  backdrop-filter: blur(6px);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.hero-image-slider__nav--prev {
+  left: 0.65rem !important;
+  right: auto !important;
+}
+
+.hero-image-slider__nav--next {
+  right: 0.65rem !important;
+  left: auto !important;
+}
+
+.hero-image-slider__nav:hover:not(:disabled) {
+  border-color: color-mix(in oklch, #fff 42%, transparent);
+  background: color-mix(in oklch, #000 68%, transparent);
+}
+
+.hero-image-slider__nav:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hero-image-slider__nav svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+@media (min-width: 640px) {
+  .hero-image-slider__nav {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .hero-image-slider__nav--prev {
+    left: 0.85rem !important;
+  }
+
+  .hero-image-slider__nav--next {
+    right: 0.85rem !important;
+  }
+}

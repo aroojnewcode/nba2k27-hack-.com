@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /go/
+
+Sitemap: https://nba2k27hack.net/sitemap.xml
+
+# RSS: https://nba2k27hack.net/rss.xml

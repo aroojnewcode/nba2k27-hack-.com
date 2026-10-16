@@ -1,0 +1,142 @@
+---
+import '../styles/hack-menu-section.css';
+import { t } from '../i18n';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { nbaGameplayImages } from '../data/nbaImages';
+import { CARD_IMAGE_WIDTHS, webpSrc } from '../utils/responsiveImage';
+import { Button } from '@/components/starwind/button';
+import Icon from './icons/Icon.astro';
+
+const m = t.hackMenu;
+
+const previewByTab: Record<string, string> = {
+  shooting: nbaGameplayImages.autoGreenShot,
+  myplayer: nbaGameplayImages.excellentRelease,
+  park: nbaGameplayImages.parkGameplay,
+};
+
+const defaultTab = m.tabs[0]?.id ?? 'shooting';
+---
+
+<section id="hack-menu" class="hack-menu-section" aria-labelledby="hack-menu-title">
+  <div class="mx-auto max-w-6xl px-5">
+    <header class="section-header section-header--wide max-w-3xl">
+      <p class="section-header__eyebrow">{m.eyebrow}</p>
+      <h2 id="hack-menu-title" class="section-header__title">
+        {m.titleBefore}{' '}
+        <span class="text-primary">{m.titleHighlight}</span>
+        {m.titleAfter ? ` ${m.titleAfter}` : ''}
+      </h2>
+      <p class="section-header__subtitle">{m.subtitle}</p>
+    </header>
+
+    <div id="hack-menu-showcase" class="hack-menu__showcase">
+      <div class="hack-menu__preview" data-hack-menu-preview-wrap>
+        <ResponsiveImage
+          src={previewByTab[defaultTab]}
+          alt=""
+          width={960}
+          height={540}
+          widths={CARD_IMAGE_WIDTHS}
+          sizes="(min-width: 1024px) 520px, 100vw"
+          loading="lazy"
+          decoding="async"
+          class="hack-menu__preview-img"
+        />
+        <p class="hack-menu__preview-meta">{m.previewFooter}</p>
+      </div>
+
+      <div class="hack-menu__panel">
+        <div class="hack-menu__tabs" role="tablist" aria-label="Loader menu categories">
+          {
+            m.tabs.map((tab, i) => (
+              <button
+                type="button"
+                class="hack-menu__tab"
+                role="tab"
+                id={`hack-menu-tab-${tab.id}`}
+                aria-controls={`hack-menu-panel-${tab.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                data-hack-menu-tab={tab.id}
+              >
+                {tab.label}
+              </button>
+            ))
+          }
+        </div>
+
+        {
+          m.panels.map((panel, i) => (
+            <div
+              id={`hack-menu-panel-${panel.id}`}
+              role="tabpanel"
+              aria-labelledby={`hack-menu-tab-${panel.id}`}
+              class="hack-menu__panel-body"
+              data-hack-menu-panel={panel.id}
+              data-preview-webp={webpSrc(previewByTab[panel.id], CARD_IMAGE_WIDTHS[2] ?? 640)}
+              hidden={i !== 0}
+            >
+              <div class="hack-menu__rows">
+                {
+                  panel.rows.map((row) => (
+                    <div class="hack-menu__row">
+                      <span class="hack-menu__row-label">{row.label}</span>
+                      {row.kind === 'slider' ? (
+                        <div class="flex items-center gap-2">
+                          <span class="hack-menu__slider" aria-hidden="true" />
+                          <span class="hack-menu__slider-label">{row.sliderValue}</span>
+                        </div>
+                      ) : (
+                        <span class:list={['hack-menu__row-value', row.value === 'On' && 'is-on']}>
+                          {row.value}
+                        </span>
+                      )}
+                    </div>
+                  ))
+                }
+              </div>
+              <p class="hack-menu__note" data-hack-menu-panel-note>{panel.note}</p>
+            </div>
+          ))
+        }
+
+      </div>
+    </div>
+
+    <div class="hack-menu__cards">
+      {
+        m.cards.map((card, i) => (
+          <article
+            class="hack-menu__card"
+            data-hack-menu-card={card.tabId}
+            hidden={i !== 0}
+          >
+            <p class="hack-menu__card-title">{card.title}</p>
+            <p class="hack-menu__card-text">{card.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="hack-menu__ctas">
+      <Button as="a" href={m.ctaPrimaryHref} variant="primary" size="lg" class="rounded-xl">
+        {m.ctaPrimary}
+        <Icon name="arrowRight" size={18} />
+      </Button>
+      <Button as="a" href={m.ctaSecondaryHref} variant="secondary" size="lg" class="rounded-xl">
+        {m.ctaSecondary}
+      </Button>
+    </div>
+  </div>
+
+  <script>
+    import { initHackMenuSection } from '../scripts/hack-menu.ts';
+
+    const run = () => initHackMenuSection();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run, { once: true });
+    } else {
+      run();
+    }
+  </script>
+</section>

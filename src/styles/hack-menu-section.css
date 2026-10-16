@@ -1,0 +1,213 @@
+.hack-menu-section {
+  border-top: 1px solid var(--border);
+  background: color-mix(in oklch, var(--background) 92%, var(--primary) 8%);
+  padding: 3.5rem 0 4rem;
+}
+
+.hack-menu__showcase {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklch, var(--border) 80%, var(--primary) 20%);
+  background: color-mix(in oklch, var(--card) 70%, var(--background));
+  padding: 1rem;
+  box-shadow: 0 1px 0 color-mix(in oklch, var(--foreground) 6%, transparent);
+}
+
+@media (min-width: 1024px) {
+  .hack-menu__showcase {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+.hack-menu__preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 4px);
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    165deg,
+    color-mix(in oklch, var(--primary) 22%, var(--background)) 0%,
+    var(--background) 55%
+  );
+  min-height: 16rem;
+}
+
+.hack-menu__preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+}
+
+.hack-menu__preview-meta {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--foreground) 75%, transparent);
+  background: linear-gradient(to top, color-mix(in oklch, var(--background) 88%, transparent), transparent);
+}
+
+.hack-menu__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: calc(var(--radius-xl) - 4px);
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.hack-menu__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hack-menu__tab {
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.hack-menu__tab[aria-selected='true'] {
+  border-color: color-mix(in oklch, var(--primary) 55%, var(--border));
+  background: color-mix(in oklch, var(--primary) 18%, var(--background));
+  color: var(--foreground);
+}
+
+.hack-menu__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.hack-menu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.hack-menu__row-label {
+  color: var(--foreground);
+}
+
+.hack-menu__row-value {
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.hack-menu__row-value.is-on {
+  color: color-mix(in oklch, var(--success, #22c55e) 85%, var(--foreground));
+}
+
+.hack-menu__slider {
+  flex: 1;
+  max-width: 9rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--muted) 80%, var(--border));
+  position: relative;
+}
+
+.hack-menu__slider::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 55%;
+  height: 100%;
+  transform: translateY(-50%);
+  border-radius: inherit;
+  background: var(--primary);
+}
+
+.hack-menu__slider-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.hack-menu__note {
+  margin-top: 0.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted) 35%, transparent);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.hack-menu__cards {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .hack-menu__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.hack-menu__card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 1rem 1.1rem;
+}
+
+.hack-menu__card-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.hack-menu__card-text {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.hack-menu__card[hidden] {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hack-menu__card[hidden] {
+    display: block;
+  }
+}
+
+.hack-menu__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}

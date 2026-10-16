@@ -1,0 +1,74 @@
+---
+import { t } from '../i18n';
+import Icon from './icons/Icon.astro';
+import type { IconName } from './icons/types';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/starwind/select';
+
+interface Props {
+  id?: string;
+  layout?: 'default' | 'toolbar';
+}
+
+const { id = 'blog-sort-select', layout = 'default' } = Astro.props;
+const isToolbar = layout === 'toolbar';
+
+const sortOptions: { value: string; label: string; icon: IconName }[] = [
+  { value: 'newest', label: t.blog.sortNewest, icon: 'calendar' },
+  { value: 'oldest', label: t.blog.sortOldest, icon: 'fieldCalendar' },
+  { value: 'short', label: t.blog.sortShortRead, icon: 'clock' },
+  { value: 'long', label: t.blog.sortLongRead, icon: 'heroStatClock' },
+];
+---
+
+<div
+  id={id}
+  class:list={[
+    'flex w-full flex-col gap-1.5',
+    isToolbar ? 'blog-toolbar__sort sm:min-w-[11rem]' : 'sm:w-auto sm:min-w-[12rem]',
+  ]}
+>
+  <span
+    class:list={[
+      'text-xs font-semibold uppercase tracking-wider text-muted-foreground',
+      !isToolbar && 'flex items-center gap-1.5',
+    ]}
+  >
+    {!isToolbar && <Icon name="settings" size={14} class="text-primary" aria-hidden="true" />}
+    {t.blog.sortLabel}
+  </span>
+  <Select id="blog-sort" defaultValue="newest" name="blog-sort" class="relative w-full">
+    <SelectTrigger
+      size="sm"
+      aria-label={t.blog.sortLabel}
+      class:list={['w-full', isToolbar ? 'min-w-[11rem] rounded-full' : 'min-w-[12rem]']}
+    >
+      {!isToolbar && <Icon name="refresh" size={15} class="shrink-0 text-primary" aria-hidden="true" />}
+      <SelectValue placeholder={t.blog.sortNewest} />
+    </SelectTrigger>
+    <SelectContent
+      size="sm"
+      align="end"
+      side="bottom"
+      sideOffset={8}
+      alignItemWithTrigger={false}
+      avoidCollisions
+    >
+      {
+        sortOptions.map((option) => (
+          <SelectItem value={option.value}>
+            <span class="flex items-center gap-2">
+              <Icon name={option.icon} size={15} class="shrink-0 text-muted-foreground" aria-hidden="true" />
+              {option.label}
+            </span>
+          </SelectItem>
+        ))
+      }
+    </SelectContent>
+  </Select>
+</div>
