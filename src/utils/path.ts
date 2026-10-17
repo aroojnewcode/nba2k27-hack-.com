@@ -75,6 +75,17 @@ export function blogPostPath(slug: string, locale?: string | null): string {
   return localizedInternalPath(locale ?? 'en', `/blog/${slug}/`);
 }
 
+export function forumPostPath(slug: string, locale?: string | null): string {
+  return localizedInternalPath(locale ?? 'en', `/forum/${slug}/`);
+}
+
+export function forumIndexPath(locale?: string | null, category?: string): string {
+  const base = localizedInternalPath(locale ?? 'en', '/forum/');
+  if (!category || category === 'all') return base;
+  const join = base.includes('?') ? '&' : '?';
+  return `${base}${join}category=${encodeURIComponent(category)}`;
+}
+
 export function localizedRoute(
   locale: string | null | undefined,
   route: (typeof ROUTES)[keyof typeof ROUTES],

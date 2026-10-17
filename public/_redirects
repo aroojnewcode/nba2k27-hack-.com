@@ -1,0 +1,2 @@
+# Legacy forum thread URLs (no locale prefix) → English forum
+/forum/*  /en/forum/:splat  301
