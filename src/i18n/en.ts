@@ -25,13 +25,14 @@ export const en: Translations = {
   hero: {
     status: 'NBA 2K27 · PC',
     eyebrow: '',
-    titleLine1: 'NBA 2K27 hack:',
-    titleLine2: 'auto green, badges',
-    titleLine3: '& overlay for Park & Rec',
+    titleLine1: 'NBA 2K27 hack',
+    titleLine2: 'aimbot, shooting',
+    titleLine3: '& cheat tools for PC',
     subtitle:
-      'PC MyCareer, Park, and Rec—shot meter assist, dribble macros, badge tools, and cloud presets maintained every patch at nba2k27hack.net.',
+      'Aim assist, shot timing, dribble macros, badge editor, and VC utilities in one menu—kept up to date after every patch at nba2k27hack.net.',
     ctaPrimary: 'View products',
     ctaBuy: 'Buy now',
+    ctaDiscord: 'Join Discord',
     modesLabel: 'NBA 2K27 modes',
     modes: ['MyCareer', 'Park', 'Rec', 'Pro-Am'],
     metrics: [
@@ -144,9 +145,9 @@ export const en: Translations = {
   },
   whyUs: {
     eyebrow: 'Why us',
-    title: 'Park and Rec tooling backed by patches—not promises',
+    title: 'NBA 2K27 cheats that keep up with every patch',
     subtitle:
-      'Most NBA 2K27 hack shops ship stale loaders, obvious automation, and ticket bots. We built nba2k27hack.net around patch-day delivery, humanized timing, and live operators.',
+      'Many sites sell outdated tools and slow support. We focus on quick updates after game patches, natural-looking settings, and real help on Discord.',
     usLabel: 'NBA 2K27 HACK',
     otherLabel: 'Typical provider',
     rows: [
@@ -306,6 +307,7 @@ export const en: Translations = {
   blog: {
     eyebrow: 'Blog',
     title: 'Guides and updates',
+    homeTitle: 'BLOGS AND UPDATES',
     subtitle: 'Hack setup, auto green tuning, Elite tier notes and patch-day checks for NBA 2K27.',
     latestTitle: 'Latest articles',
     latestSubtitle: 'Filter by topic or sort to find setup guides, feature deep-dives, and patch-day notes.',
@@ -730,7 +732,7 @@ export const en: Translations = {
     browseCheatsMobile: 'Get Hack',
     homeAria: 'NBA 2K27 HACK home',
     checkoutAria: 'Start checkout',
-    discordAria: 'Buy NBA 2K27 hack — start checkout',
+    discordAria: 'Join NBA 2K27 HACK on Discord',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
     themeLight: 'Switch to light mode',

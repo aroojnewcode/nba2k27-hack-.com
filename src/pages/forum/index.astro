@@ -4,18 +4,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Icon from '../../components/icons/Icon.astro';
 import { forumCategories, forumPosts } from '../../data/forum';
-import { blogPosts, getBlogPostTimestamp } from '../../data/blog';
 import { resolvePageSeo } from '../../config/seo';
 import { breadcrumbSchema, collectionPageSchema } from '../../utils/schema';
 
 const seo = resolvePageSeo('/forum/');
 const breadcrumbs = [{ name: 'Home', path: '/' }, { name: 'Forum', path: '/forum/' }];
 const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
-const sourceTimestamp = (path?: string) => {
-  const slug = path?.split('/').filter(Boolean).at(-1);
-  const article = blogPosts.find((item) => item.slug === slug);
-  return article ? getBlogPostTimestamp(article.date) : 0;
-};
 ---
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={[
@@ -55,11 +49,11 @@ const sourceTimestamp = (path?: string) => {
               <button type="button" data-forum-filter={categoryKey(category.name)} aria-pressed="false"><Icon name={category.icon} size={14} /> {category.name}</button>
             ))}
           </div>
-          <p class="forum-results-count" data-forum-visible-count>{forumPosts.length} guide discussions</p>
+          <p class="forum-results-count" data-forum-visible-count>{forumPosts.length} forum discussions</p>
 
           <div class="forum-post-list" aria-live="polite">
             {forumPosts.map((post, index) => (
-              <article class="forum-post-card" data-forum-card data-post-slug={post.slug} data-upvotes={post.upvotes} data-category={categoryKey(post.category)} data-comments={post.commentsCount} data-published={sourceTimestamp(post.sourcePath)} data-order={index}>
+              <article class="forum-post-card" data-forum-card data-post-slug={post.slug} data-upvotes={post.upvotes} data-category={categoryKey(post.category)} data-comments={post.commentsCount} data-published={post.publishedAt}>
                 <div class="forum-vote" aria-label="Discussion voting">
                   <button class="forum-vote__up" type="button" data-vote-up aria-label="Upvote this discussion"><Icon name="chevronDown" size={16} /></button>
                   <strong data-vote-count>{post.upvotes}</strong>
@@ -98,7 +92,7 @@ const sourceTimestamp = (path?: string) => {
             <div class="forum-about__content">
               <div class="forum-about__title"><span class="forum-community-avatar forum-community-avatar--brand"><img src="/logo.svg" alt="" width="34" height="34" /></span><h2>NBA 2K27 HACK Community</h2></div>
               <p>A home for NBA 2K27 players to share builds, Park meta, and setup tips.</p>
-              <div class="forum-stats"><span><b>{forumPosts.length}</b> guide discussions</span><span><b>{forumCategories.length}</b> topics</span></div>
+              <div class="forum-stats"><span><b>{forumPosts.length}</b> forum discussions</span><span><b>{forumCategories.length}</b> topics</span></div>
               <a class="forum-join" href="/blog/">Explore all guides</a>
             </div>
           </section>
@@ -143,9 +137,15 @@ const sourceTimestamp = (path?: string) => {
       const sort = sortButtons.find((button) => button.getAttribute('aria-pressed') === 'true')?.dataset.forumSort ?? 'popular';
       const query = searchInput?.value.trim().toLocaleLowerCase() ?? '';
       const ordered = [...cards].sort((a, b) => {
-        if (sort === 'latest') return Number(b.dataset.published) - Number(a.dataset.published);
-        if (sort === 'top') return Number(b.dataset.comments) - Number(a.dataset.comments);
-        return Number(a.dataset.order) - Number(b.dataset.order);
+        const upA = Number(a.dataset.upvotes) || 0;
+        const upB = Number(b.dataset.upvotes) || 0;
+        const pubA = Number(a.dataset.published) || 0;
+        const pubB = Number(b.dataset.published) || 0;
+        const comA = Number(a.dataset.comments) || 0;
+        const comB = Number(b.dataset.comments) || 0;
+        if (sort === 'latest') return pubB - pubA || upB - upA;
+        if (sort === 'top') return comB - comA || upB - upA;
+        return upB - upA || comB - comA || pubB - pubA;
       });
       const matching = ordered.filter((card) => {
         const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
@@ -156,9 +156,16 @@ const sourceTimestamp = (path?: string) => {
       const firstVisible = (currentPage - 1) * pageSize;
       const visibleCards = new Set(matching.slice(firstVisible, firstVisible + pageSize));
 
-      ordered.forEach((card) => {
+      const matchingSet = new Set(matching);
+      matching.forEach((card) => {
         card.hidden = !visibleCards.has(card);
         list?.append(card);
+      });
+      cards.forEach((card) => {
+        if (!matchingSet.has(card)) {
+          card.hidden = true;
+          list?.append(card);
+        }
       });
 
       if (countStatus) countStatus.textContent = `${matching.length} ${matching.length === 1 ? 'discussion' : 'discussions'}`;

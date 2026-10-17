@@ -2,7 +2,6 @@
 import '../styles/hero-section.css';
 import { t } from '../i18n';
 import { ROUTES } from '../utils/path';
-import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 import { heroSlides } from '../data/products';
 import { compatibilityIcons, heroStatIcons, heroStatusPills } from '../data/sectionIcons';
 import { nbaGameplayImages } from '../data/nbaImages';
@@ -59,10 +58,17 @@ const heroMarqueePills = [
             {h.ctaPrimary}
             <Icon name="arrowRight" size={18} />
           </Button>
-          <a href={PRIMARY_CHECKOUT_PATH} class="hero-cta-buy" aria-label={t.ui.checkoutAria}>
-            {h.ctaBuy}
-            <Icon name="arrowRight" size={18} class="text-[#0c0a12]" />
-          </a>
+          <Button
+            as="a"
+            href={t.site.discord}
+            variant="secondary"
+            size="lg"
+            class="hero-section__cta-discord rounded-xl"
+            aria-label={t.ui.discordAria}
+          >
+            <Icon name="messageCircle" size={18} />
+            {h.ctaDiscord}
+          </Button>
         </div>
       </div>
 

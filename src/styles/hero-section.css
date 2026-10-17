@@ -1,29 +1,224 @@
-/* Hero — dark purple band (light and dark site themes) */
+/* Hero — theme-aware band; slider frame stays dark purple (see hero-image-slider.css) */
 .hero-section--immersive {
-  --hero-purple-deep: #0a0614;
-  --hero-purple-base: #12081f;
-  --hero-purple-mid: #1a0d2e;
-  --hero-purple-glow: color-mix(in oklch, var(--primary) 42%, #2d1452);
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-bottom: 1px solid color-mix(in oklch, var(--primary) 32%, #0a0614);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* —— Day / light mode —— */
+html:not(.dark) .hero-section--immersive {
+  background:
+    radial-gradient(ellipse 100% 70% at 50% -10%, color-mix(in oklch, var(--primary) 14%, #f5f3ff) 0%, transparent 55%),
+    linear-gradient(180deg, #faf8ff 0%, var(--background) 100%);
+}
+
+html:not(.dark) .hero-section--immersive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 85% 15%, color-mix(in oklch, var(--primary) 10%, transparent) 0%, transparent 50%);
+  opacity: 0.85;
+}
+
+html:not(.dark) .hero-section__bg img {
+  filter: blur(40px) saturate(1.05) brightness(0.92);
+  opacity: 0.22;
+}
+
+html:not(.dark) .hero-section__bg-overlay {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklch, var(--background) 92%, var(--primary) 8%) 0%,
+    color-mix(in oklch, var(--background) 88%, var(--primary) 12%) 50%,
+    color-mix(in oklch, var(--background) 94%, transparent) 100%
+  );
+}
+
+html:not(.dark) .hero-section__kicker {
+  border-color: color-mix(in oklch, var(--primary) 28%, var(--border));
+  background: color-mix(in oklch, var(--primary) 8%, var(--background));
+  color: color-mix(in oklch, var(--primary) 75%, var(--foreground));
+}
+
+html:not(.dark) .hero-section__title {
+  color: var(--foreground);
+}
+
+html:not(.dark) .hero-section__title-accent {
+  color: #6528d4;
+}
+
+html:not(.dark) .hero-section__subtitle {
+  color: var(--muted-foreground);
+}
+
+html:not(.dark) .hero-section__cta-outline {
+  border-color: var(--border) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+html:not(.dark) .hero-section__cta-outline:hover {
+  background: var(--muted) !important;
+  border-color: color-mix(in oklch, var(--primary) 40%, var(--border)) !important;
+}
+
+html:not(.dark) .hero-section__metric {
+  border-color: var(--border);
+  background: color-mix(in oklch, var(--background) 88%, var(--primary) 6%);
+  box-shadow: 0 1px 2px color-mix(in oklch, #000 6%, transparent);
+}
+
+html:not(.dark) .hero-section--immersive .hero-section__metric .font-bold {
+  color: var(--foreground);
+}
+
+html:not(.dark) .hero-section--immersive .hero-section__metric .text-muted-foreground {
+  color: var(--muted-foreground);
+}
+
+html:not(.dark) .hero-section__media {
+  background: transparent;
+  box-shadow: none;
+}
+
+html:not(.dark) .hero-section__media::after {
+  display: none;
+}
+
+html:not(.dark) .hero-section--immersive .hero-status-marquee .bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--background), transparent);
+}
+
+html:not(.dark) .hero-section--immersive .hero-status-marquee .bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--background), transparent);
+}
+
+html:not(.dark) .hero-section--immersive .hero-marquee-badge {
+  border-color: var(--border);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* —— Night / dark mode —— */
+html.dark .hero-section--immersive {
+  --hero-purple-deep: #030208;
+  --hero-purple-base: #06040e;
+  --hero-purple-mid: #0a0614;
+  --hero-purple-glow: color-mix(in oklch, var(--primary) 28%, #14082a);
+  border-bottom-color: color-mix(in oklch, var(--primary) 32%, #0a0614);
   color: #f4f4f5;
   background:
     radial-gradient(ellipse 120% 80% at 50% -20%, var(--hero-purple-glow) 0%, transparent 55%),
     linear-gradient(165deg, var(--hero-purple-deep) 0%, var(--hero-purple-base) 42%, var(--hero-purple-mid) 100%);
 }
 
-.hero-section--immersive::before {
+html.dark .hero-section--immersive::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 80% 20%, color-mix(in oklch, var(--primary) 22%, transparent) 0%, transparent 45%);
-  opacity: 0.9;
+  background: radial-gradient(ellipse at 80% 20%, color-mix(in oklch, var(--primary) 12%, transparent) 0%, transparent 45%);
+  opacity: 0.65;
 }
 
+html.dark .hero-section__bg img {
+  filter: blur(36px) saturate(0.85) brightness(0.22);
+  opacity: 1;
+}
+
+html.dark .hero-section__bg-overlay {
+  background: linear-gradient(
+    125deg,
+    color-mix(in oklch, var(--hero-purple-deep) 94%, var(--primary) 6%) 0%,
+    color-mix(in oklch, var(--hero-purple-mid) 92%, var(--primary) 8%) 48%,
+    color-mix(in oklch, var(--hero-purple-base) 96%, transparent) 100%
+  );
+}
+
+html.dark .hero-section__kicker {
+  border: 1px solid color-mix(in oklch, #fff 22%, transparent);
+  background: color-mix(in oklch, #000 35%, transparent);
+  color: color-mix(in oklch, #fff 88%, var(--primary) 12%);
+}
+
+html.dark .hero-section__title {
+  color: #ffffff;
+}
+
+html.dark .hero-section__title-accent {
+  color: color-mix(in oklch, var(--primary) 72%, #c4b5fd);
+}
+
+html.dark .hero-section__subtitle {
+  color: color-mix(in oklch, #fff 72%, var(--primary) 28%);
+}
+
+html.dark .hero-section__cta-outline {
+  border-color: color-mix(in oklch, #fff 28%, transparent) !important;
+  background: color-mix(in oklch, #000 25%, transparent) !important;
+  color: #fff !important;
+}
+
+html.dark .hero-section__cta-outline:hover {
+  background: color-mix(in oklch, #fff 12%, transparent) !important;
+  border-color: color-mix(in oklch, var(--primary) 45%, #fff 20%) !important;
+}
+
+html.dark .hero-section__metric {
+  border-color: color-mix(in oklch, var(--primary) 28%, #fff 10%);
+  background: color-mix(in oklch, #0a0a12 55%, var(--primary) 12%);
+  box-shadow: inset 0 1px 0 color-mix(in oklch, #fff 6%, transparent);
+}
+
+html.dark .hero-section--immersive .hero-section__metric .font-bold {
+  color: #fff;
+}
+
+html.dark .hero-section--immersive .hero-section__metric .text-muted-foreground {
+  color: color-mix(in oklch, #fff 55%, transparent);
+}
+
+html.dark .hero-section__media {
+  background: var(--hero-purple-deep);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--primary) 22%, var(--hero-purple-deep)),
+    0 16px 32px color-mix(in oklch, #000 55%, transparent);
+}
+
+html.dark .hero-section__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--hero-purple-deep) 75%, transparent),
+    transparent 55%
+  );
+}
+
+html.dark .hero-section--immersive .hero-status-marquee .bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--hero-purple-base), transparent);
+}
+
+html.dark .hero-section--immersive .hero-status-marquee .bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--hero-purple-base), transparent);
+}
+
+html.dark .hero-section--immersive .hero-marquee-badge {
+  border-color: color-mix(in oklch, #fff 15%, transparent);
+  background: color-mix(in oklch, #000 25%, transparent);
+  color: color-mix(in oklch, #fff 90%, transparent);
+}
+
+/* —— Shared —— */
 .hero-section__bg {
   position: absolute;
   inset: 0;
@@ -37,18 +232,11 @@
   height: 100%;
   object-fit: cover;
   transform: scale(1.06);
-  filter: blur(32px) saturate(1.1) brightness(0.45);
 }
 
 .hero-section__bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    125deg,
-    color-mix(in oklch, var(--hero-purple-deep) 88%, var(--primary) 12%) 0%,
-    color-mix(in oklch, var(--hero-purple-mid) 82%, var(--primary) 18%) 48%,
-    color-mix(in oklch, var(--hero-purple-base) 90%, transparent) 100%
-  );
 }
 
 .hero-section__inner {
@@ -59,15 +247,13 @@
 .hero-section__kicker {
   display: inline-flex;
   align-items: center;
+  border: 1px solid transparent;
   border-radius: 9999px;
-  border: 1px solid color-mix(in oklch, #fff 22%, transparent);
-  background: color-mix(in oklch, #000 35%, transparent);
   padding: 0.35rem 0.85rem;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: color-mix(in oklch, #fff 88%, var(--primary) 12%);
 }
 
 .hero-section__title {
@@ -79,11 +265,6 @@
   line-height: 1.02;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #ffffff;
-}
-
-.hero-section__title-accent {
-  color: color-mix(in oklch, var(--primary) 72%, #c4b5fd);
 }
 
 @media (min-width: 1024px) {
@@ -96,105 +277,31 @@
   max-width: 34rem;
   font-size: 0.9375rem;
   line-height: 1.55;
-  color: color-mix(in oklch, #fff 72%, var(--primary) 28%);
 }
 
-.hero-cta-buy {
-  --hero-buy-bg: color-mix(in oklch, var(--primary) 28%, #ebe4ff);
-  --hero-buy-fg: #121018;
-  --hero-buy-border: color-mix(in oklch, var(--primary) 35%, #c4b5fd);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.65rem 1.35rem;
-  border-radius: 9999px;
-  border: 1px solid var(--hero-buy-border);
-  background: var(--hero-buy-bg);
-  color: var(--hero-buy-fg);
-  font-size: 0.9375rem;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 1px 2px color-mix(in oklch, #000 8%, transparent);
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.hero-cta-buy:hover {
-  background: color-mix(in oklch, var(--primary) 36%, #f0ebff);
-  border-color: color-mix(in oklch, var(--primary) 45%, #c4b5fd);
-}
-
-.hero-cta-buy:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary) 28%, transparent);
-}
-
-html.dark .hero-cta-buy {
-  --hero-buy-bg: color-mix(in oklch, var(--primary) 40%, #ddd6fe);
-  --hero-buy-fg: #0a0812;
-  --hero-buy-border: color-mix(in oklch, var(--primary) 50%, #a78bfa);
-}
-
-.hero-section__cta-outline {
-  border-radius: 9999px;
-  border-color: color-mix(in oklch, #fff 28%, transparent) !important;
-  background: color-mix(in oklch, #000 25%, transparent) !important;
+.hero-section__cta-discord {
+  border-radius: 9999px !important;
+  border-color: color-mix(in oklch, #5865f2 55%, #4752c4) !important;
+  background: color-mix(in oklch, #5865f2 88%, #4752c4) !important;
   color: #fff !important;
+  font-weight: 700;
 }
 
-.hero-section__cta-outline:hover {
-  background: color-mix(in oklch, #fff 12%, transparent) !important;
-  border-color: color-mix(in oklch, var(--primary) 45%, #fff 20%) !important;
-}
-
-.hero-section__metric {
-  border-color: color-mix(in oklch, var(--primary) 28%, #fff 10%);
-  background: color-mix(in oklch, #0a0a12 55%, var(--primary) 12%);
-  box-shadow: inset 0 1px 0 color-mix(in oklch, #fff 6%, transparent);
-}
-
-.hero-section--immersive .hero-section__metric .font-bold {
-  color: #fff;
-}
-
-.hero-section--immersive .hero-section__metric .text-muted-foreground {
-  color: color-mix(in oklch, #fff 55%, transparent);
+.hero-section__cta-discord:hover {
+  background: color-mix(in oklch, #5865f2 78%, #fff 8%) !important;
+  border-color: color-mix(in oklch, #5865f2 70%, #fff 15%) !important;
 }
 
 .hero-section__media {
   position: relative;
   border-radius: var(--radius-xl);
   overflow: visible;
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--primary) 35%, transparent),
-    0 16px 32px color-mix(in oklch, #000 40%, transparent);
 }
 
 .hero-section__media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    to top,
-    color-mix(in oklch, var(--hero-purple-deep) 75%, transparent),
-    transparent 55%
-  );
+  display: none;
 }
 
-.hero-section--immersive .hero-status-marquee .bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--hero-purple-base), transparent);
-}
-
-.hero-section--immersive .hero-status-marquee .bg-gradient-to-l {
-  background-image: linear-gradient(to left, var(--hero-purple-base), transparent);
-}
-
-.hero-section--immersive .hero-marquee-badge {
-  border-color: color-mix(in oklch, #fff 15%, transparent);
-  background: color-mix(in oklch, #000 25%, transparent);
-  color: color-mix(in oklch, #fff 90%, transparent);
+html.dark .hero-section__media::after {
+  display: block;
 }

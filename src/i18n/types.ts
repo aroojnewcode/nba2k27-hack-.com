@@ -106,6 +106,7 @@ export interface Translations {
     subtitle: string;
     ctaPrimary: string;
     ctaBuy: string;
+    ctaDiscord: string;
     modesLabel: string;
     modes: string[];
     metrics: { label: string; strong: string }[];
@@ -162,6 +163,7 @@ export interface Translations {
   blog: {
     eyebrow: string;
     title: string;
+    homeTitle: string;
     subtitle: string;
     latestTitle: string;
     latestSubtitle: string;

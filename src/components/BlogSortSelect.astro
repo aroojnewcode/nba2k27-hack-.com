@@ -29,8 +29,8 @@ const sortOptions: { value: string; label: string; icon: IconName }[] = [
 <div
   id={id}
   class:list={[
-    'flex w-full flex-col gap-1.5',
-    isToolbar ? 'blog-toolbar__sort sm:min-w-[11rem]' : 'sm:w-auto sm:min-w-[12rem]',
+    'flex flex-col gap-1.5',
+    isToolbar ? 'blog-toolbar__sort w-auto shrink-0' : 'w-full sm:w-auto sm:min-w-[12rem]',
   ]}
 >
   <span

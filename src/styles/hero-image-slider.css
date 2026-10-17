@@ -1,16 +1,26 @@
+/* Hero slider — darkest purple frame in both themes */
 .hero-image-slider {
+  --hero-slide-deep: #030208;
+  --hero-slide-base: #06040e;
+  --hero-slide-mid: #0a0614;
   border-radius: var(--radius-xl);
-  border: 1px solid color-mix(in oklch, var(--primary) 38%, var(--hero-purple-deep, #0a0614));
+  border: 1px solid color-mix(in oklch, var(--primary) 22%, var(--hero-slide-deep));
   background: linear-gradient(
     160deg,
-    var(--hero-purple-mid, #1a0d2e) 0%,
-    var(--hero-purple-base, #12081f) 55%,
-    var(--hero-purple-deep, #0a0614) 100%
+    var(--hero-slide-mid) 0%,
+    var(--hero-slide-base) 55%,
+    var(--hero-slide-deep) 100%
   );
   padding: 0.5rem;
   box-shadow:
     0 0 0 1px color-mix(in oklch, var(--primary) 22%, transparent),
     0 8px 24px color-mix(in oklch, #000 45%, transparent);
+}
+
+html:not(.dark) .hero-image-slider {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--primary) 18%, var(--hero-slide-deep)),
+    0 12px 28px color-mix(in oklch, #000 18%, transparent);
 }
 
 .hero-image-slider__carousel {
@@ -31,7 +41,7 @@
   margin: 0;
   overflow: hidden;
   border-radius: calc(var(--radius-xl) - 0.35rem);
-  background: color-mix(in oklch, var(--hero-purple-mid, #1a0d2e) 88%, var(--primary) 12%);
+  background: color-mix(in oklch, var(--hero-slide-deep) 94%, var(--primary) 6%);
 }
 
 .hero-image-slider__nav {

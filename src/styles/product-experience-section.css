@@ -208,12 +208,30 @@
 }
 
 .product-experience__steps {
-  display: flex;
+  display: grid;
   flex: 1;
-  flex-direction: column;
+  grid-template-columns: 1fr;
   gap: 0;
   margin: 0;
   padding: 0;
+}
+
+@media (min-width: 640px) {
+  .product-experience__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1rem;
+  }
+
+  .product-experience__step {
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .product-experience__step:last-child {
+    border-bottom: 1px solid var(--border);
+  }
 }
 
 

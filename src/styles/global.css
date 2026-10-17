@@ -263,6 +263,28 @@ a.nav-link[data-nav-link].is-active:hover {
   color: var(--primary);
 }
 
+/* Floating navbar — solid enough for day mode over the hero */
+html:not(.dark) header [data-floating-nav] > div {
+  border-color: color-mix(in oklch, var(--border) 90%, transparent) !important;
+  background: color-mix(in oklch, var(--background) 94%, transparent) !important;
+  box-shadow:
+    0 4px 20px color-mix(in oklch, #000 10%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--border) 50%, transparent) !important;
+  backdrop-filter: blur(16px);
+}
+
+html:not(.dark) header [data-floating-nav] .nav-link {
+  color: var(--muted-foreground);
+}
+
+html:not(.dark) header [data-floating-nav] .nav-link:hover {
+  color: var(--primary);
+}
+
+html:not(.dark) header [data-floating-nav] .nav-link.is-active {
+  color: var(--muted-foreground);
+}
+
 a.nav-link[data-nav-link] .icon-app {
   color: currentColor;
 }

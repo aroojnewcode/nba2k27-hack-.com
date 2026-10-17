@@ -58,7 +58,7 @@ function cardLabel(product: (typeof productPages)[number]) {
         <p class="text-lg text-muted-foreground">{t.products.subtitle}</p>
       </div>
 
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
         {productPages.map((product) => (
           <CatalogCard
             label={cardLabel(product)}

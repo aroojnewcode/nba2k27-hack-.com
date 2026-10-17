@@ -48,6 +48,22 @@ const lcpImage = webpSrc(blogPosts[0]!.image, CARD_IMAGE_WIDTHS[0]);
       </header>
 
       <div class="blog-toolbar mt-8 lg:mt-10" role="search">
+        <div class="blog-toolbar__controls">
+          <div class="blog-toolbar__search">
+            <label class="blog-toolbar__label" for="blog-search">{t.blog.searchLabel}</label>
+            <input
+              id="blog-search"
+              type="search"
+              class="blog-toolbar__search-input"
+              placeholder={t.blog.searchPlaceholder}
+              autocomplete="off"
+              spellcheck="false"
+              data-blog-search
+            />
+          </div>
+          <BlogSortSelect layout="toolbar" />
+        </div>
+
         <div class="blog-toolbar__filters" role="toolbar" aria-label="Filter articles by topic">
           <button
             type="button"
@@ -69,22 +85,6 @@ const lcpImage = webpSrc(blogPosts[0]!.image, CARD_IMAGE_WIDTHS[0]);
               </button>
             ))
           }
-        </div>
-
-        <div class="blog-toolbar__controls">
-          <div class="blog-toolbar__search">
-            <label class="blog-toolbar__label" for="blog-search">{t.blog.searchLabel}</label>
-            <input
-              id="blog-search"
-              type="search"
-              class="blog-toolbar__search-input"
-              placeholder={t.blog.searchPlaceholder}
-              autocomplete="off"
-              spellcheck="false"
-              data-blog-search
-            />
-          </div>
-          <BlogSortSelect layout="toolbar" />
         </div>
       </div>
 

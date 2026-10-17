@@ -21,6 +21,8 @@ export interface ForumPost {
   comments: ForumComment[];
   sourceTitle?: string;
   sourcePath?: string;
+  /** Sort key for “Latest” (ms since epoch). */
+  publishedAt: number;
 }
 
 export const forumCategories = [
@@ -29,6 +31,22 @@ export const forumCategories = [
   { name: 'Patch Talk', tone: 'orange', icon: 'refresh' },
   { name: 'Community', tone: 'green', icon: 'messageCircle' },
 ] as const;
+
+export function countForumReplies(comments: ForumComment[]): number {
+  return comments.reduce((total, comment) => total + 1 + (comment.replies?.length ?? 0), 0);
+}
+
+function buildGuideComments(answer: string, detail: string, tip: string, replyCount: 1 | 2 | 3): ForumComment[] {
+  const first = { author: 'nba2k27_ops', age: '2 days ago', score: 8, body: answer };
+  if (replyCount === 1) return [first];
+  const second = { author: 'park_builder', age: '1 day ago', score: 5, body: detail };
+  if (replyCount === 2) return [first, second];
+  return [
+    first,
+    second,
+    { author: 'community_mod', age: '18 hours ago', score: 3, body: tip },
+  ];
+}
 
 function guideDiscussion(input: {
   slug: string;
@@ -39,26 +57,32 @@ function guideDiscussion(input: {
   sourceTitle: string;
   sourcePath: string;
   upvotes: number;
+  replyCount: 1 | 2 | 3;
+  publishedAt: number;
   answer: string;
   detail: string;
   tip: string;
 }): ForumPost {
-  const { answer, detail, tip, ...post } = input;
+  const { answer, detail, tip, replyCount, publishedAt, ...post } = input;
+  const comments = buildGuideComments(answer, detail, tip, replyCount);
   return {
     ...post,
-    author: 'guide_team',
+    author: 'nba2k27_ops',
     age: '2 days ago',
-    commentsCount: 1,
-    upvotes: 14,
+    commentsCount: countForumReplies(comments),
+    upvotes: input.upvotes,
+    publishedAt,
     flair: 'Guide Q&A',
     body: [answer, detail],
-    comments: [{ author: 'guide_team', age: 'From the guide', score: 0, body: tip }],
+    comments,
   };
 }
 
 const additionalGuidePosts: ForumPost[] = [
   guideDiscussion({
     slug: 'what-auto-green-presets-include',
+    replyCount: 3,
+    publishedAt: Date.parse('2026-10-10T12:00:00Z'),
     title: 'What do auto green presets include in the setup guide?',
     upvotes: 73,
     excerpt: 'Shot meter windows, latency sliders, and MyCourt vs Park profiles explained.',
@@ -73,6 +97,8 @@ const additionalGuidePosts: ForumPost[] = [
   }),
   guideDiscussion({
     slug: 'how-to-tune-shot-meter-overlay',
+    replyCount: 1,
+    publishedAt: Date.parse('2026-10-14T09:30:00Z'),
     title: 'How should I tune the shot meter overlay for the first time?',
     upvotes: 58,
     excerpt: 'Readable colors, meter placement, and stream-proof testing workflow.',
@@ -87,6 +113,8 @@ const additionalGuidePosts: ForumPost[] = [
   }),
   guideDiscussion({
     slug: 'when-to-upgrade-to-elite-hack',
+    replyCount: 2,
+    publishedAt: Date.parse('2026-10-12T16:00:00Z'),
     title: 'When should I upgrade to Elite instead of utilities only?',
     upvotes: 44,
     excerpt: 'Elite bundles auto green, badge tools, VC utilities, and Unlock All on one patch queue.',
@@ -101,6 +129,8 @@ const additionalGuidePosts: ForumPost[] = [
   }),
   guideDiscussion({
     slug: 'what-to-check-after-nba-2k27-patch',
+    replyCount: 2,
+    publishedAt: Date.parse('2026-10-15T11:00:00Z'),
     title: 'What should I check before playing after an NBA 2K27 patch?',
     upvotes: 36,
     excerpt: 'Status banner, loader version, and conservative profile reload steps.',
@@ -115,6 +145,8 @@ const additionalGuidePosts: ForumPost[] = [
   }),
   guideDiscussion({
     slug: 'unlock-all-local-preview-explained',
+    replyCount: 3,
+    publishedAt: Date.parse('2026-10-11T08:00:00Z'),
     title: 'Does Unlock All show courts and jerseys to other players online?',
     upvotes: 29,
     excerpt: 'Local preview only—other players still see your real inventory.',
@@ -129,6 +161,8 @@ const additionalGuidePosts: ForumPost[] = [
   }),
   guideDiscussion({
     slug: 'hwid-spoofer-vs-new-account',
+    replyCount: 1,
+    publishedAt: Date.parse('2026-10-08T14:00:00Z'),
     title: 'HWID spoofer or new account after a hardware flag?',
     upvotes: 24,
     excerpt: 'When to spoof, when to appeal, and when to start fresh.',
@@ -143,6 +177,21 @@ const additionalGuidePosts: ForumPost[] = [
   }),
 ];
 
+const checkoutDiscussionComments: ForumComment[] = [
+  {
+    author: 'nba2k27_ops',
+    age: '3 days ago',
+    score: 3,
+    body: 'Elite and utilities use the same secure checkout flow—pick the product page that matches your goal first.',
+  },
+  {
+    author: 'setup_helper',
+    age: '2 days ago',
+    score: 2,
+    body: 'Use the same order email in Discord support—staff match your license to the portal before sending loader links.',
+  },
+];
+
 export const forumPosts: ForumPost[] = [
   ...additionalGuidePosts,
   {
@@ -151,9 +200,8 @@ export const forumPosts: ForumPost[] = [
     categoryTone: 'green',
     title: 'How does checkout and portal access work?',
     excerpt: 'Order email, operator dashboard, and first Discord ticket tips.',
-    author: 'guide_team',
+    author: 'nba2k27_ops',
     age: '3 days ago',
-    commentsCount: 2,
     upvotes: 48,
     flair: 'Guide Q&A',
     sourceTitle: 'How to buy NBA 2K27 hack in 2026',
@@ -162,14 +210,9 @@ export const forumPosts: ForumPost[] = [
       'Complete checkout on nba2k27hack.net, then open the portal link from your order email to download the current loader.',
       'Include your order email and Windows version when opening Discord support for setup help.',
     ],
-    comments: [
-      {
-        author: 'guide_team',
-        age: 'From the guide',
-        score: 3,
-        body: 'Elite and utilities use the same secure checkout flow—pick the product page that matches your goal first.',
-      },
-    ],
+    comments: checkoutDiscussionComments,
+    commentsCount: countForumReplies(checkoutDiscussionComments),
+    publishedAt: Date.parse('2026-10-16T18:00:00Z'),
   },
 ];
 
