@@ -4,12 +4,14 @@
  */
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { esMap } from '../src/i18n/locales/maps/esMap.ts';
-import { deMap } from '../src/i18n/locales/maps/deMap.ts';
-import { frMap } from '../src/i18n/locales/maps/frMap.ts';
-import { ptBrMap } from '../src/i18n/locales/maps/ptBrMap.ts';
+import { getStringMap } from '../src/i18n/locales/maps/getStringMap.ts';
 
-const maps = { es: esMap, de: deMap, fr: frMap, 'pt-br': ptBrMap };
+const maps = {
+  es: getStringMap('es'),
+  de: getStringMap('de'),
+  fr: getStringMap('fr'),
+  'pt-br': getStringMap('pt-br'),
+};
 
 const raw = readFileSync(new URL('./i18n-en-strings.txt', import.meta.url), 'utf8');
 const strings = raw

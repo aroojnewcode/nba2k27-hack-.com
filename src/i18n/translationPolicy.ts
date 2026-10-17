@@ -19,9 +19,9 @@ export function isLightTranslationLocale(locale?: string | null): boolean {
   return LIGHT_TRANSLATION_LOCALES.includes(raw);
 }
 
-/** Blog / forum article bodies: light (English) on all locales until localized posts exist. */
-export function useLightLongFormContent(_locale?: string | null): boolean {
-  return true;
+/** Long-form blog/forum bodies use string-map localization on strong locales (unique lines fall back to English). */
+export function useLightLongFormContent(locale?: string | null): boolean {
+  return !isStrongTranslationLocale(locale);
 }
 
 /** Product detail paragraphs, acquisition steps, and spec lists use strong maps when available. */

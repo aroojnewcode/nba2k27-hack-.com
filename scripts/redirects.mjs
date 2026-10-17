@@ -46,7 +46,24 @@ export const PATH_REDIRECTS = new Map([
 /** Paths that should not receive a forced trailing slash. */
 export const TRAILING_SLASH_SKIP = /\.[a-z0-9]+$/i;
 
+/** Non-locale forum URLs → English forum (pages live under /en/forum/). */
+export function resolveForumLegacyRedirect(pathname) {
+  if (pathname === '/forum' || pathname === '/forum/') {
+    return '/en/forum/';
+  }
+
+  const match = /^\/forum\/([^/]+)\/?$/.exec(pathname);
+  if (match?.[1]) {
+    return `/en/forum/${match[1]}/`;
+  }
+
+  return null;
+}
+
 export function resolvePathRedirect(pathname) {
+  const forumLegacy = resolveForumLegacyRedirect(pathname);
+  if (forumLegacy) return forumLegacy;
+
   const direct = PATH_REDIRECTS.get(pathname);
   if (direct) return direct;
 

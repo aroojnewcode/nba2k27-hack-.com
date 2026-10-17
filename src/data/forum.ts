@@ -1,3 +1,7 @@
+import { localizeUiString, localizeUiStrings } from '../i18n/localeStringMap';
+import { isStrongTranslationLocale } from '../i18n/translationPolicy';
+import { normalizeLocale } from '../utils/locale';
+
 export interface ForumComment {
   author: string;
   age: string;
@@ -31,6 +35,14 @@ export const forumCategories = [
   { name: 'Patch Talk', tone: 'orange', icon: 'refresh' },
   { name: 'Community', tone: 'green', icon: 'messageCircle' },
 ] as const;
+
+export function getForumCategories(locale?: string | null) {
+  const loc = normalizeLocale(locale ?? 'en');
+  return forumCategories.map((category) => ({
+    ...category,
+    name: localizeUiString(category.name, loc),
+  }));
+}
 
 export function countForumReplies(comments: ForumComment[]): number {
   return comments.reduce((total, comment) => total + 1 + (comment.replies?.length ?? 0), 0);
@@ -216,6 +228,16 @@ export const forumPosts: ForumPost[] = [
   },
 ];
 
-export function getForumPost(slug: string): ForumPost | undefined {
-  return forumPosts.find((post) => post.slug === slug);
+export function getForumPosts(locale?: string | null): ForumPost[] {
+  const loc = normalizeLocale(locale ?? 'en');
+  if (!isStrongTranslationLocale(loc) || loc === 'en') return forumPosts;
+  return forumPosts.map((post) => localizeUiStrings(post, loc));
+}
+
+export function getForumPost(slug: string, locale?: string | null): ForumPost | undefined {
+  const post = forumPosts.find((item) => item.slug === slug);
+  if (!post) return undefined;
+  const loc = normalizeLocale(locale ?? 'en');
+  if (!isStrongTranslationLocale(loc) || loc === 'en') return post;
+  return localizeUiStrings(post, loc);
 }

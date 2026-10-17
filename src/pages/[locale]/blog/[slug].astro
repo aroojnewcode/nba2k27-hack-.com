@@ -35,9 +35,8 @@ export function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const post = getBlogPost(slug!);
-
 const locale = Astro.currentLocale ?? 'en';
+const post = getBlogPost(slug!, locale);
 
 if (!post) {
   return Astro.redirect(localizedRoute(locale, ROUTES.blog));

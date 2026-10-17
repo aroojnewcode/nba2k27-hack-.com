@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { sitemapSerialize } from './src/config/sitemap.ts';
+import { buildForumLegacyRedirects } from './scripts/forum-redirect-map.mjs';
 
 const productHub = '/products/nba-2k27-hack/';
 const productHubEn = '/en/products/nba-2k27-hack/';
@@ -26,6 +27,7 @@ export default defineConfig({
     '/blog/': '/en/blog/',
     '/faq/': '/en/faq/',
     '/forum/': '/en/forum/',
+    ...buildForumLegacyRedirects(),
     '/about/': '/en/about/',
     '/support/': '/en/support/',
     '/privacy/': '/en/privacy/',

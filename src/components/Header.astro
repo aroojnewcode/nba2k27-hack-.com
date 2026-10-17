@@ -14,8 +14,6 @@ import {
 } from '@/components/starwind/sheet';
 import Icon from './icons/Icon.astro';
 import SlideRevealButton from './SlideRevealButton.astro';
-import LanguageModeSwitch from './LanguageModeSwitch.astro';
-
 import type { IconName } from './icons/types';
 
 const currentLocale = pageLocale(Astro);
@@ -58,7 +56,6 @@ const purchaseUrl = checkoutPath('nba2k27');
 
     <div class="flex items-center gap-2">
       <div class="hidden items-center gap-2 sm:flex">
-        <LanguageModeSwitch class="hidden md:inline-flex" />
         <SlideRevealButton href={purchaseUrl} class="hidden lg:inline-flex" ariaLabel={t.ui.browseCheats}>
           {t.ui.browseCheats}
         </SlideRevealButton>
@@ -102,8 +99,7 @@ const purchaseUrl = checkoutPath('nba2k27');
           >
             {t.ui.browseCheatsMobile}
           </Button>
-          <div class="flex items-center justify-center gap-3 pt-1">
-            <LanguageModeSwitch />
+          <div class="flex items-center justify-center pt-1">
             <AnimatedThemeSwitch size="sm" ariaLabel={t.ui.themeLight} />
           </div>
         </SheetContent>

@@ -120,6 +120,11 @@ const PAGE_SEO_LOCALIZED: Record<SiteLocale, Record<string, PageSeoEntry>> = {
       description:
         'Ayuda con loader, HWID spoofer, checkout Elite y parches—contacta soporte NBA 2K27 HACK para MyCareer y Park en PC.',
     },
+    '/forum/': {
+      title: 'Foro NBA 2K27 | Comunidad NBA 2K27 HACK',
+      description:
+        'Preguntas sobre setup del hack, auto green, meta Park, parches, Elite y HWID—explora temas en nba2k27hack.net.',
+    },
   },
   'pt-br': {
     ...pageSeoEn(),
@@ -143,6 +148,11 @@ const PAGE_SEO_LOCALIZED: Record<SiteLocale, Record<string, PageSeoEntry>> = {
       title: 'Suporte e contato | NBA 2K27 HACK',
       description:
         'Ajuda com loader, HWID spoofer, checkout Elite e dia de patch—suporte NBA 2K27 HACK para MyCareer e Park no PC.',
+    },
+    '/forum/': {
+      title: 'Fórum NBA 2K27 | Comunidade NBA 2K27 HACK',
+      description:
+        'Perguntas sobre setup do hack, auto green, meta Park, patches, Elite e HWID—veja tópicos em nba2k27hack.net.',
     },
   },
   fr: {
@@ -168,6 +178,11 @@ const PAGE_SEO_LOCALIZED: Record<SiteLocale, Record<string, PageSeoEntry>> = {
       description:
         'Aide loader, HWID spoofer, checkout Elite et jour de patch—support NBA 2K27 HACK pour MyCareer et Park sur PC.',
     },
+    '/forum/': {
+      title: 'Forum NBA 2K27 | Communauté NBA 2K27 HACK',
+      description:
+        'Questions sur setup hack, auto green, meta Park, patches, Elite et HWID—parcourir les sujets sur nba2k27hack.net.',
+    },
   },
   de: {
     ...pageSeoEn(),
@@ -191,6 +206,11 @@ const PAGE_SEO_LOCALIZED: Record<SiteLocale, Record<string, PageSeoEntry>> = {
       title: 'Support & Kontakt | NBA 2K27 HACK',
       description:
         'Hilfe zu Loader, HWID Spoofer, Elite-Checkout und Patch-Tag—NBA 2K27 HACK Support für MyCareer und Park auf PC.',
+    },
+    '/forum/': {
+      title: 'NBA 2K27 Forum | NBA 2K27 HACK Community',
+      description:
+        'Fragen zu Hack-Setup, Auto Green, Park-Meta, Patches, Elite und HWID—Themen auf nba2k27hack.net durchsuchen.',
     },
   },
 };

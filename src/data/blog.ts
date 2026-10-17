@@ -3,23 +3,29 @@ export { blogPosts } from './blog/posts';
 
 import { blogPosts } from './blog/posts';
 import type { BlogPostFull } from './blog/types';
-import { localizeUiString } from '../i18n/localeStringMap';
+import { localizeUiString, localizeUiStrings } from '../i18n/localeStringMap';
+import { isStrongTranslationLocale, useLightLongFormContent } from '../i18n/translationPolicy';
 import { normalizeLocale } from '../utils/locale';
 
-/** Strong locales: translate card metadata; article body stays English (light long-form). */
-export function localizeBlogPost<T extends Pick<BlogPostFull, 'title' | 'desc' | 'tag'>>(post: T, locale?: string | null): T {
+/** Strong locales: full post tree when long-form is enabled; otherwise title/desc/tag only. */
+export function localizeBlogPost<T extends BlogPostFull>(post: T, locale?: string | null): T {
   const loc = normalizeLocale(locale);
-  if (loc === 'en') return post;
-  return {
-    ...post,
-    title: localizeUiString(post.title, loc),
-    desc: localizeUiString(post.desc, loc),
-    tag: localizeUiString(post.tag, loc),
-  };
+  if (loc === 'en' || !isStrongTranslationLocale(loc)) return post;
+  if (useLightLongFormContent(loc)) {
+    return {
+      ...post,
+      title: localizeUiString(post.title, loc),
+      desc: localizeUiString(post.desc, loc),
+      tag: localizeUiString(post.tag, loc),
+    };
+  }
+  return localizeUiStrings(post, loc);
 }
 
-export function getBlogPost(slug: string) {
-  return blogPosts.find((p) => p.slug === slug);
+export function getBlogPost(slug: string, locale?: string | null) {
+  const post = blogPosts.find((p) => p.slug === slug);
+  if (!post) return undefined;
+  return localizeBlogPost(post, locale);
 }
 
 export function getAllBlogSlugs() {

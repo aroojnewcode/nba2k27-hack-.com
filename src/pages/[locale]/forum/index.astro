@@ -5,7 +5,14 @@ import '../../../styles/forum.css';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Icon from '../../../components/icons/Icon.astro';
-import { forumCategories, forumPosts } from '../../../data/forum';
+import {
+  forumCategories as forumCategoriesEn,
+  forumPosts as forumPostsEn,
+  getForumCategories,
+  getForumPosts,
+} from '../../../data/forum';
+import { getTranslations } from '../../../i18n';
+import { localizeUiString } from '../../../i18n/localeStringMap';
 import { resolvePageSeo } from '../../../config/seo';
 import { breadcrumbSchema, collectionPageSchema } from '../../../utils/schema';
 import { pageLocale } from '../../../utils/locale';
@@ -18,15 +25,22 @@ import {
 } from '../../../utils/path';
 
 const locale = pageLocale(Astro);
+const t = getTranslations(locale);
+const ui = (text: string) => localizeUiString(text, locale);
+const forumPosts = getForumPosts(locale);
+const forumCategories = getForumCategories(locale);
 const seo = resolvePageSeo('/forum/', locale);
 const forumHome = localizedRoute(locale, ROUTES.forum);
 const blogHome = localizedRoute(locale, ROUTES.blog);
-const breadcrumbs = [{ name: 'Home', path: '/' }, { name: 'Forum', path: forumHome }];
+const breadcrumbs = [
+  { name: t.nav[0]?.label ?? ui('Home'), path: '/' },
+  { name: ui('Forum'), path: forumHome },
+];
 const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
 ---
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={[
-  collectionPageSchema({ name: 'NBA 2K27 HACK Community Forum', description: seo.description, url: '/forum/' }),
+  collectionPageSchema({ name: ui('NBA 2K27 HACK Community Forum'), description: seo.description, url: '/forum/' }),
   breadcrumbSchema(breadcrumbs),
 ]}>
   <section class="forum-page py-8 md:py-12">
@@ -34,39 +48,39 @@ const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '
       <Breadcrumbs items={breadcrumbs} />
       <header class="forum-hero">
         <div>
-          <p class="section-header__eyebrow">NBA 2K27 community forum</p>
-          <h1>NBA 2K27 Community Forum</h1>
-          <p class="forum-hero__copy">Practical answers on console setup, map awareness, patch updates, and hero builds.</p>
+          <p class="section-header__eyebrow">{ui('NBA 2K27 community forum')}</p>
+          <h1>{ui('NBA 2K27 Community Forum')}</h1>
+          <p class="forum-hero__copy">{ui('Practical answers on console setup, map awareness, patch updates, and hero builds.')}</p>
         </div>
-        <a class="forum-create" href={blogHome}><Icon name="messageCircle" size={17} /> Explore the guides</a>
+        <a class="forum-create" href={blogHome}><Icon name="messageCircle" size={17} /> {ui('Explore the guides')}</a>
       </header>
 
       <div class="forum-layout">
         <main class="forum-main" aria-label="Community posts">
           <div class="forum-toolbar">
             <div class="forum-sort" role="group" aria-label="Post sorting">
-              <button class="is-active" type="button" data-forum-sort="popular" aria-pressed="true">Popular</button>
-              <button type="button" data-forum-sort="latest" aria-pressed="false">Latest</button>
-              <button type="button" data-forum-sort="top" aria-pressed="false">Most discussed</button>
+              <button class="is-active" type="button" data-forum-sort="popular" aria-pressed="true">{ui('Popular')}</button>
+              <button type="button" data-forum-sort="latest" aria-pressed="false">{ui('Latest')}</button>
+              <button type="button" data-forum-sort="top" aria-pressed="false">{ui('Most discussed')}</button>
             </div>
             <label class="forum-search">
               <Icon name="search" size={16} />
-              <input type="search" placeholder="Search discussions" aria-label="Search discussions" data-forum-search />
-              <span class="sr-only" data-forum-count>{forumPosts.length} discussions</span>
+              <input type="search" placeholder={ui('Search discussions')} aria-label={ui('Search discussions')} data-forum-search />
+              <span class="sr-only" data-forum-count>{forumPosts.length} {ui('forum discussions')}</span>
             </label>
           </div>
 
           <div class="forum-category-filters" role="group" aria-label="Filter discussions by topic">
-            <button type="button" class="is-active" data-forum-filter="all" aria-pressed="true"><Icon name="layers" size={14} /> All topics</button>
-            {forumCategories.map((category) => (
-              <button type="button" data-forum-filter={categoryKey(category.name)} aria-pressed="false"><Icon name={category.icon} size={14} /> {category.name}</button>
+            <button type="button" class="is-active" data-forum-filter="all" aria-pressed="true"><Icon name="layers" size={14} /> {ui('All topics')}</button>
+            {forumCategoriesEn.map((categoryEn, index) => (
+              <button type="button" data-forum-filter={categoryKey(categoryEn.name)} aria-pressed="false"><Icon name={categoryEn.icon} size={14} /> {forumCategories[index]?.name ?? categoryEn.name}</button>
             ))}
           </div>
-          <p class="forum-results-count" data-forum-visible-count>{forumPosts.length} forum discussions</p>
+          <p class="forum-results-count" data-forum-visible-count>{forumPosts.length} {ui('forum discussions')}</p>
 
           <div class="forum-post-list" aria-live="polite">
             {forumPosts.map((post, index) => (
-              <article class="forum-post-card" data-forum-card data-post-slug={post.slug} data-upvotes={post.upvotes} data-category={categoryKey(post.category)} data-comments={post.commentsCount} data-published={post.publishedAt}>
+              <article class="forum-post-card" data-forum-card data-post-slug={post.slug} data-upvotes={post.upvotes} data-category={categoryKey(forumPostsEn.find((item) => item.slug === post.slug)?.category ?? post.category)} data-comments={post.commentsCount} data-published={post.publishedAt}>
                 <div class="forum-vote" aria-label="Discussion voting">
                   <button class="forum-vote__up" type="button" data-vote-up aria-label="Upvote this discussion"><Icon name="chevronDown" size={16} /></button>
                   <strong data-vote-count>{post.upvotes}</strong>
@@ -76,7 +90,7 @@ const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '
                   <div class="forum-post-meta">
                     <span class={`forum-community-avatar tone-${post.categoryTone}`}><Icon name="users" size={15} /></span>
                     <a href="#communities" class="forum-community-name">d/{post.category.toLowerCase().replaceAll(' ', '')}</a>
-                    <span>·</span><span><Icon name="userRound" size={13} /> NBA 2K27 HACK guide team</span><span>Guide-based Q&amp;A</span>
+                    <span>·</span><span><Icon name="userRound" size={13} /> NBA 2K27 HACK guide team</span><span>{ui('Guide-based Q&A')}</span>
                   </div>
                   <a class="forum-post-title" href={forumPostPath(post.slug, locale)}>{post.title}</a>
                   <p class="forum-post-excerpt">{post.excerpt}</p>
@@ -95,11 +109,11 @@ const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '
               </article>
             ))}
           </div>
-          <p class="forum-empty" data-forum-empty hidden>No discussions match. Try another search or topic.</p>
+          <p class="forum-empty" data-forum-empty hidden>{ui('No discussions match. Try another search or topic.')}</p>
           <nav class="forum-pagination" aria-label="Discussion pages" data-forum-pagination hidden>
-            <button type="button" data-page-previous aria-label="Previous page">Previous</button>
+            <button type="button" data-page-previous aria-label="Previous page">{ui('Previous')}</button>
             <div class="forum-pagination__pages" data-page-buttons></div>
-            <button type="button" data-page-next aria-label="Next page">Next</button>
+            <button type="button" data-page-next aria-label="Next page">{ui('Next')}</button>
             <span class="forum-pagination__status" data-page-status aria-live="polite"></span>
           </nav>
         </main>
@@ -108,27 +122,27 @@ const categoryKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '
           <section class="forum-side-card forum-about" id="community-guidelines">
             <div class="forum-side-card__banner"></div>
             <div class="forum-about__content">
-              <div class="forum-about__title"><span class="forum-community-avatar forum-community-avatar--brand"><img src="/logo.svg" alt="" width="34" height="34" /></span><h2>NBA 2K27 HACK Community</h2></div>
-              <p>A home for NBA 2K27 players to share builds, Park meta, and setup tips.</p>
-              <div class="forum-stats"><span><b>{forumPosts.length}</b> forum discussions</span><span><b>{forumCategories.length}</b> topics</span></div>
-              <a class="forum-join" href={blogHome}>Explore all guides</a>
+              <div class="forum-about__title"><span class="forum-community-avatar forum-community-avatar--brand"><img src="/logo.svg" alt="" width="34" height="34" /></span><h2>{ui('NBA 2K27 HACK Community')}</h2></div>
+              <p>{ui('A home for NBA 2K27 players to share builds, Park meta, and setup tips.')}</p>
+              <div class="forum-stats"><span><b>{forumPosts.length}</b> {ui('forum discussions')}</span><span><b>{forumCategories.length}</b> {ui('topics')}</span></div>
+              <a class="forum-join" href={blogHome}>{ui('Explore all guides')}</a>
             </div>
           </section>
           <section class="forum-side-card" id="communities">
-            <h2 class="forum-side-heading">Communities</h2>
+            <h2 class="forum-side-heading">{ui('Communities')}</h2>
             <ul class="forum-community-list">
-              {forumCategories.map((category, index) => (
-                <li><a href={forumIndexPath(locale, categoryKey(category.name))}><span class={`forum-community-avatar tone-${category.tone}`} aria-hidden="true"><Icon name={category.icon} size={15} /></span><span><b>{category.name}</b><small>Browse related Q&amp;A</small></span><Icon name="chevronRight" size={15} /></a></li>
+              {forumCategoriesEn.map((categoryEn, index) => (
+                <li><a href={forumIndexPath(locale, categoryKey(categoryEn.name))}><span class={`forum-community-avatar tone-${categoryEn.tone}`} aria-hidden="true"><Icon name={categoryEn.icon} size={15} /></span><span><b>{forumCategories[index]?.name ?? categoryEn.name}</b><small>{ui('Browse related Q&A')}</small></span><Icon name="chevronRight" size={15} /></a></li>
               ))}
             </ul>
-            <a class="forum-text-link" href="#communities">Browse all communities <Icon name="arrowRight" size={14} /></a>
+            <a class="forum-text-link" href="#communities">{ui('Browse all communities')} <Icon name="arrowRight" size={14} /></a>
           </section>
           <section class="forum-side-card forum-rules">
-            <h2 class="forum-side-heading">Community guidelines</h2>
-            <ol><li>Keep it friendly and constructive</li><li>Stay on topic and add context</li><li>Mark spoilers and sensitive content</li></ol>
-            <a href="#community-guidelines">Read the full guidelines <Icon name="arrowRight" size={14} /></a>
+            <h2 class="forum-side-heading">{ui('Community guidelines')}</h2>
+            <ol><li>{ui('Keep it friendly and constructive')}</li><li>{ui('Stay on topic and add context')}</li><li>{ui('Mark spoilers and sensitive content')}</li></ol>
+            <a href="#community-guidelines">{ui('Read the full guidelines')} <Icon name="arrowRight" size={14} /></a>
           </section>
-          <p class="forum-sidebar-foot">About · Guidelines · Privacy · Terms<br />© {new Date().getFullYear()} NBA 2K27 HACK Community</p>
+          <p class="forum-sidebar-foot">{ui('About · Guidelines · Privacy · Terms')}<br />© {new Date().getFullYear()} {ui('NBA 2K27 HACK Community')}</p>
         </aside>
       </div>
     </div>

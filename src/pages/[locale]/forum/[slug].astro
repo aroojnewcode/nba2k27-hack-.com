@@ -3,7 +3,8 @@ import '../../../styles/forum.css';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Icon from '../../../components/icons/Icon.astro';
-import { forumPosts, getForumPost } from '../../../data/forum';
+import { forumPosts as forumPostsEn, getForumPost, getForumPosts } from '../../../data/forum';
+import { localizeUiString } from '../../../i18n/localeStringMap';
 import { pageTitle } from '../../../config/seo';
 import { breadcrumbSchema, discussionForumPostingSchema } from '../../../utils/schema';
 import { combineWithLocales } from '../../../utils/localeStaticPaths';
@@ -16,12 +17,14 @@ import {
 } from '../../../utils/path';
 
 export function getStaticPaths() {
-  return combineWithLocales(forumPosts.map((post) => ({ params: { slug: post.slug } })));
+  return combineWithLocales(forumPostsEn.map((post) => ({ params: { slug: post.slug } })));
 }
 
 const locale = pageLocale(Astro);
-const post = getForumPost(Astro.params.slug!);
+const ui = (text: string) => localizeUiString(text, locale);
+const post = getForumPost(Astro.params.slug!, locale);
 if (!post) return Astro.redirect(localizedRoute(locale, ROUTES.forum));
+const forumPosts = getForumPosts(locale);
 const path = forumPostPath(post.slug, locale);
 const forumHome = localizedRoute(locale, ROUTES.forum);
 const breadcrumbs = [
@@ -30,9 +33,18 @@ const breadcrumbs = [
   { name: post.category, path: forumHome },
   { name: post.title, path },
 ];
+const enPost = forumPostsEn.find((item) => item.slug === post.slug);
 const relatedPosts = [
-  ...forumPosts.filter((item) => item.slug !== post.slug && item.category === post.category),
-  ...forumPosts.filter((item) => item.slug !== post.slug && item.category !== post.category),
+  ...forumPosts.filter(
+    (item) =>
+      item.slug !== post.slug &&
+      forumPostsEn.find((en) => en.slug === item.slug)?.category === enPost?.category,
+  ),
+  ...forumPosts.filter(
+    (item) =>
+      item.slug !== post.slug &&
+      forumPostsEn.find((en) => en.slug === item.slug)?.category !== enPost?.category,
+  ),
 ].slice(0, 3);
 ---
 
