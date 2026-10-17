@@ -1,6 +1,8 @@
 ---
 import Icon from './icons/Icon.astro';
-import { ROUTES } from '../utils/path';
+import { localizedRoute, ROUTES } from '../utils/path';
+
+const blogIndexHref = localizedRoute(Astro.currentLocale, ROUTES.blog);
 import { blogTagIcons } from '../data/sectionIcons';
 import type { BlogPost } from '../i18n/types';
 import type { IconName } from './icons/types';
@@ -16,7 +18,7 @@ const tagIcon: IconName = blogTagIcons[post.tag] ?? 'tag';
 ---
 
 <div class:list={['blog-article__toolbar', className]}>
-  <a href={ROUTES.blog} class="blog-article__toolbar-back shrink-0">
+  <a href={blogIndexHref} class="blog-article__toolbar-back shrink-0">
     <Icon name="chevronLeft" size={15} aria-hidden="true" />
     All articles
   </a>

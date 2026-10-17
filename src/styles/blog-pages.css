@@ -1,3 +1,12 @@
+/* Blog index — slightly larger page title than default section headers */
+.blog-index-header .section-header__eyebrow {
+  font-size: 0.75rem;
+}
+
+.blog-index-header .section-header__title {
+  font-size: clamp(2.0625rem, 3.6vw, 2.5625rem);
+}
+
 /* Blog index cards — clip media only; keep footer outside overflow so bottoms stay clean */
 .blog-card {
   isolation: isolate;

@@ -1,9 +1,16 @@
 ---
 import '../styles/blog-sidebar.css';
 import Icon from './icons/Icon.astro';
-import { blogPostPath, productPath, ROUTES } from '../utils/path';
+import { blogPostPath, localizedRoute, productPath, ROUTES } from '../utils/path';
+import { localizedInternalPath } from '../utils/locale';
+
+import { pageLocale } from '../utils/locale';
+
+const locale = pageLocale(Astro);
 import { checkoutPath } from '../config/checkout';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+
+const t = getTranslations(locale);
 import type { BlogPostFull } from '../data/blog';
 import type { IconName } from './icons/types';
 import { Badge } from '@/components/starwind/badge';
@@ -35,11 +42,11 @@ const toc = post.body
   }));
 
 const productLinks: { label: string; href: string; icon: IconName }[] = [
-  { label: 'NBA 2K27 products', href: ROUTES.products, icon: 'sidebarHub' },
-  { label: 'Elite cheats', href: ROUTES.productsElite, icon: 'sidebarElite' },
-  { label: 'Skin Changer', href: productPath('unlock-all'), icon: 'sidebarSkin' },
-  { label: 'HWID Spoofer', href: productPath('hwid-spoofer'), icon: 'sidebarHwid' },
-  { label: 'UGC', href: productPath('ugc'), icon: 'sidebarUgc' },
+  { label: 'NBA 2K27 products', href: localizedRoute(locale, ROUTES.products), icon: 'sidebarHub' },
+  { label: 'Elite cheats', href: localizedRoute(locale, ROUTES.productsElite), icon: 'sidebarElite' },
+  { label: 'Skin Changer', href: productPath('unlock-all', locale), icon: 'sidebarSkin' },
+  { label: 'HWID Spoofer', href: productPath('hwid-spoofer', locale), icon: 'sidebarHwid' },
+  { label: 'UGC', href: productPath('ugc', locale), icon: 'sidebarUgc' },
 ];
 ---
 
@@ -92,7 +99,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
         <ul class="blog-sidebar__list">
           {related.map((item) => (
             <li>
-              <a href={blogPostPath(item.slug)} class="blog-sidebar__link" title={item.title}>
+              <a href={blogPostPath(item.slug, locale)} class="blog-sidebar__link" title={item.title}>
                 <Icon name="arrowUpRight" size={13} class="shrink-0 opacity-70" aria-hidden="true" />
                 <span class="blog-sidebar__truncate">{item.title}</span>
               </a>

@@ -1,56 +1,47 @@
-=== index.html ===
-Dota 2 Cheats &amp; Hacks | Scripts, Map Hack &amp; ESP
-Dota 2 cheats for PC ranked: scripts, map hack, zoom hack, and skin changer tiers updated every patch at dotacheats.com.
-https://dotacheats.com/
+=== / ===
+NBA 2K27 Hack & Cheats | Auto Green, Badges & VC for PC
+NBA 2K27 hack for PC MyCareer, Park, and Rec—auto green, shot meter, badge editor, VC tools, and Unlock All utilities updated every patch at nba2k27hack.net.
+https://nba2k27hack.net/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== cheats/index.html ===
-Dota 2 Cheat Tiers | Lite, Pro &amp; Elite
-Compare Lite, Pro, and Elite dota cheats—ESP, scripts, map hack, and automation modules for Steam ranked on Windows.
-https://dotacheats.com/cheats/
+
+=== /blog/ ===
+NBA 2K27 Hack Guides & Patch Notes
+Setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for NBA 2K27 hack users on PC.
+https://nba2k27hack.net/blog/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== cheats/lite/index.html ===
-Lite Dota 2 Cheats | DotaCheats
-Entry tier for dota cheats with player ESP, ward locator, jungle awareness and minimap overlay.
-https://dotacheats.com/cheats/lite/
+
+=== /faq/ ===
+FAQ | NBA 2K27 Hack, Products & Setup
+Answers on Elite hack tiers, auto green, shot meter, HWID spoofer, Unlock All, checkout, safety, and blog guides for NBA 2K27 on PC at nba2k27hack.net.
+https://nba2k27hack.net/faq/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== blog/index.html ===
-Dota 2 Cheats Guides &amp; Patch Notes
-Setup guides, Lite vs Pro comparisons, VAC patch checklists, and ranked config tips for dota cheats.
-https://dotacheats.com/blog/
+
+=== /products/nba-2k27-hack/ ===
+NBA 2K27 Hack Products | Elite & Utilities
+Elite NBA 2K27 hack plus HWID spoofer and unlock-all utilities for MyCareer, Park, and Rec on PC—compare tiers at nba2k27hack.net.
+https://nba2k27hack.net/products/nba-2k27-hack/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== blog/dota-2-cheat-codes-guide/index.html ===
-Dota 2 cheat codes guide: console commands for | DotaCheats
-Full list of Dota 2 cheat codes for custom lobbies—gold, levels, vision, hero spawn and item commands.
-https://dotacheats.com/blog/dota-2-cheat-codes-guide/
+
+=== /products/nba-2k27-hack/elite/ ===
+NBA 2K27 Elite Hack | Full MyCareer Suite
+Elite tier: auto green, shot meter assist, VC tools, badge editor, unlock-all, and priority patch delivery for NBA 2K27 on PC.
+https://nba2k27hack.net/products/nba-2k27-hack/elite/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== faq/index.html ===
-FAQ | Dota 2 Cheats, Products &amp; Setup
-Answers on cheat tiers, map hack, scripts, HWID tools, checkout, and blog guides at dotacheats.com.
-https://dotacheats.com/faq/
+
+=== /blog/nba-2k27-hack-setup-guide/ ===
+NBA 2K27 hack setup guide: loader to first | NBA 2K27 HACK
+Step-by-step NBA 2K27 hack setup on PC: download the loader, import Park presets, verify the live status banner, and test in MyCourt before MyCareer or Rec.
+https://nba2k27hack.net/blog/nba-2k27-hack-setup-guide/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
-1
-=== contact/index.html ===
-Contact &amp; Support | DotaCheats
-Get help with loader setup, HWID, and checkout for Dota 2 cheat tiers and utilities.
-https://dotacheats.com/contact/
-index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
-1
-1
-=== 404.html ===
-Page not found | DotaCheats
-The page you requested could not be found on dotacheats.com.
-https://dotacheats.com/404/
-noindex, nofollow
-0
 1

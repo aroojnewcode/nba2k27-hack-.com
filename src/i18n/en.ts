@@ -1,5 +1,7 @@
 import type { Translations } from './types';
 import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
+import { discordInviteUrl } from '../config/discord';
+import { BLOG_INDEX_SEO_TITLE, HOME_SEO } from '../config/homeSeo';
 import { PRODUCT_BASE } from '../config/site';
 import { blogPosts } from '../data/blog/posts';
 
@@ -9,10 +11,9 @@ export const en: Translations = {
   site: {
     name: 'NBA 2K27 HACK',
     domain: 'nba2k27hack.net',
-    title: 'NBA 2K27 Hack & Cheats | Auto Green, Badges & VC Tools for PC',
-    description:
-      'Undetected NBA 2K27 hack for PC MyCareer, Park, Rec and Pro-Am—auto green, shot meter, badge editor, VC tools and Unlock All, updated every patch at nba2k27hack.net.',
-    discord: PRIMARY_CHECKOUT_PATH,
+    title: HOME_SEO.title,
+    description: HOME_SEO.description,
+    discord: discordInviteUrl(),
   },
   nav: [
     { href: '/', label: 'Home' },
@@ -26,10 +27,10 @@ export const en: Translations = {
     status: 'NBA 2K27 · PC',
     eyebrow: '',
     titleLine1: 'NBA 2K27 hack',
-    titleLine2: 'aimbot, shooting',
-    titleLine3: '& cheat tools for PC',
+    titleLine2: 'auto green, shooting',
+    titleLine3: 'timing & cheat tools',
     subtitle:
-      'Aim assist, shot timing, dribble macros, badge editor, and VC utilities in one menu—kept up to date after every patch at nba2k27hack.net.',
+      'Auto green, shot meter assist, dribble macros, badge editor, and VC utilities in one menu—kept up to date after every patch at nba2k27hack.net.',
     ctaPrimary: 'View products',
     ctaBuy: 'Buy now',
     ctaDiscord: 'Join Discord',
@@ -267,7 +268,7 @@ export const en: Translations = {
   products: {
     eyebrow: 'Products',
     title: 'NBA 2K27 products',
-    subtitle: 'Elite hack plus HWID spoofer, account recovery, and Unlock All utilities.',
+    subtitle: 'Elite hack plus HWID spoofer and Unlock All utilities.',
     viewAll: 'View all products',
     get: 'Get',
     explore: 'Explore',
@@ -284,16 +285,6 @@ export const en: Translations = {
       },
       {
         badge: 'Available',
-        category: 'Account recovery',
-        title: 'NBA 2K27 Account Recovery',
-        subtitle: 'Unban & governance control',
-        desc: 'All-in-one appeal workspace for 2K account restrictions, hardware flags and security holds—custom workflows and dispute automation.',
-        features: ['Custom appeal workflows', 'Dispute automation', 'Case documentation', 'Status tracking dashboard'],
-        more: 6,
-        href: `${productBase}ugc/`,
-      },
-      {
-        badge: 'Available',
         category: 'Cosmetic',
         title: 'Unlock All',
         subtitle: 'Courts, jerseys & gear preview',
@@ -306,10 +297,10 @@ export const en: Translations = {
   },
   blog: {
     eyebrow: 'Blog',
-    title: 'Guides and updates',
+    title: BLOG_INDEX_SEO_TITLE,
     homeTitle: 'BLOGS AND UPDATES',
     subtitle: 'Hack setup, auto green tuning, Elite tier notes and patch-day checks for NBA 2K27.',
-    latestTitle: 'Latest articles',
+    latestTitle: BLOG_INDEX_SEO_TITLE,
     latestSubtitle: 'Filter by topic or sort to find setup guides, feature deep-dives, and patch-day notes.',
     filterAll: 'All articles',
     searchLabel: 'Search articles',
@@ -320,7 +311,7 @@ export const en: Translations = {
     sortShortRead: 'Shortest read',
     sortLongRead: 'Longest read',
     emptyFilter: 'No articles match this filter.',
-    viewAll: 'View all articles',
+    viewAll: 'View all blogs',
     read: 'Read',
     items: blogPosts.map(({ tag, title, slug, image, desc, date, readTime }) => ({
       tag,
@@ -548,6 +539,31 @@ export const en: Translations = {
       },
     ],
   },
+  faqPage: {
+    eyebrow: 'Help center',
+    title: 'FAQ for NBA 2K27 hack',
+    subtitle: 'Elite hack tiers, utilities, auto green, HWID tools, safety, and setup—in one place.',
+  },
+  notFound: {
+    title: 'Page not found',
+    description: 'The page you requested could not be found on nba2k27hack.net.',
+    heading: 'Page not found',
+    body: 'That URL does not exist or may have moved. Head back to the homepage or browse cheat tiers and products.',
+    backHome: 'Back to home',
+    viewProducts: 'View products',
+    viewElite: 'View Elite cheats',
+  },
+  productsUtilities: {
+    breadcrumb: 'Compare utilities',
+    title: 'Compare utilities',
+    subtitle:
+      'HWID Spoofer and Unlock All solve different problems. Match the tool to your situation before checkout.',
+    tableUtility: 'Utility',
+    tableBestFor: 'Best for',
+    tableLink: 'Product page',
+    viewCategory: 'View',
+    includes: 'Includes:',
+  },
   faq: {
     eyebrow: 'FAQ',
     title: 'Straight answers before checkout.',
@@ -581,7 +597,7 @@ export const en: Translations = {
       {
         num: '06',
         q: 'Where are products and utilities listed?',
-        a: 'Elite hack, HWID Spoofer, UGC and Unlock All live at nba2k27hack.net/products/nba-2k27-hack/ with feature lists and checkout via our partner.',
+        a: 'Elite hack, HWID Spoofer, and Unlock All live at nba2k27hack.net/products/nba-2k27-hack/ with feature lists and checkout via our partner.',
       },
     ],
   },
@@ -617,7 +633,7 @@ export const en: Translations = {
         {
           heading: 'What we publish',
           paragraphs: [
-            'Our site covers Elite hack access, HWID utilities, account recovery workflows and Unlock All cosmetics. Blog articles explain Park-safe configs, patch-day checks, and title update behavior.',
+            'Our site covers Elite hack access, HWID utilities, and Unlock All cosmetics. Blog articles explain Park-safe configs, patch-day checks, and title update behavior.',
             'Content is updated when patches land or when loader modules shift. Check the homepage status banner and Discord #status before every session.',
           ],
         },
@@ -674,7 +690,7 @@ export const en: Translations = {
         {
           heading: 'What you purchase',
           paragraphs: [
-            'We sell access to NBA 2K27 Elite hack and utility tools (HWID Spoofer, UGC account recovery, Unlock All) delivered through an operator portal and loader for NBA 2K27 on Windows PC.',
+            'We sell access to NBA 2K27 Elite hack and utility tools (HWID Spoofer, Unlock All) delivered through an operator portal and loader for NBA 2K27 on Windows PC.',
             'Feature lists on each product page describe what is included at the time of purchase. Modules can change when NBA 2K27 or anti-cheat systems update.',
           ],
         },

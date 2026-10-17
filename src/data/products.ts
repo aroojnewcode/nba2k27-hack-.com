@@ -1,4 +1,8 @@
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+import type { Translations } from '../i18n/types';
+import { localizeUiString, localizeUiStrings } from '../i18n/localeStringMap';
+import { useStrongProductCopy } from '../i18n/translationPolicy';
+import { localizedInternalPath, normalizeLocale, type SiteLocale } from '../utils/locale';
 import { checkoutForSlug, checkoutPath } from '../config/checkout';
 import type { IconName } from '../components/icons/types';
 import { nbaGameplayImages } from './nbaImages';
@@ -380,7 +384,7 @@ const productContent: Record<
   },
 };
 
-function buildTierPages(): ProductPage[] {
+function buildTierPages(t: Translations): ProductPage[] {
   return t.cheats.items.map((cheat) => {
     const slug = slugFromHref(cheat.href);
     const content = productContent[slug];
@@ -412,7 +416,7 @@ function buildTierPages(): ProductPage[] {
   });
 }
 
-function buildUtilityPages(): ProductPage[] {
+function buildUtilityPages(t: Translations): ProductPage[] {
   return t.products.items
     .filter((p) => p.href !== productBase)
     .map((product) => {
@@ -443,39 +447,73 @@ function buildUtilityPages(): ProductPage[] {
     });
 }
 
-export const productPages: ProductPage[] = [...buildTierPages(), ...buildUtilityPages()];
+const pagesByLocale = new Map<string, ProductPage[]>();
 
-export const cheatPages = productPages.filter((p) => p.kind === 'tier');
-
-export function getProductPage(slug: string) {
-  return productPages.find((p) => p.slug === slug);
+function localizeProductPage(page: ProductPage, locale: SiteLocale): ProductPage {
+  if (!useStrongProductCopy(locale) || locale === 'en') return page;
+  return localizeUiStrings(page, locale);
 }
 
-export function getCheatPage(slug: string) {
-  return cheatPages.find((p) => p.slug === slug);
+export function getProductPages(locale?: string | null): ProductPage[] {
+  const key = normalizeLocale(locale);
+  if (!pagesByLocale.has(key)) {
+    const t = getTranslations(key);
+    const pages = [...buildTierPages(t), ...buildUtilityPages(t)].map((p) => localizeProductPage(p, key));
+    pagesByLocale.set(key, pages);
+  }
+  return pagesByLocale.get(key)!;
+}
+
+export function getCheatPages(locale?: string | null) {
+  return getProductPages(locale).filter((p) => p.kind === 'tier');
+}
+
+/** @deprecated Use getProductPages(locale) */
+export const productPages = getProductPages('en');
+
+/** @deprecated Use getCheatPages(locale) */
+export const cheatPages = getCheatPages('en');
+
+export function getProductPage(slug: string, locale?: string | null) {
+  return getProductPages(locale).find((p) => p.slug === slug);
+}
+
+export function getCheatPage(slug: string, locale?: string | null) {
+  return getCheatPages(locale).find((p) => p.slug === slug);
 }
 
 export function getAllProductSlugs() {
-  return productPages.map((p) => p.slug);
+  return getProductPages('en').map((p) => p.slug);
 }
 
 export function getAllCheatSlugs() {
-  return cheatPages.map((p) => p.slug);
+  return getCheatPages('en').map((p) => p.slug);
 }
 
+/** Homepage hero carousel — all six user-provided NBA 2K27 Park / shot-meter shots. */
 export const heroSlides = slide(
   'autoGreen',
-  'excellent',
-  'scoreboard',
-  'parkAction',
+  'parkWide',
   'takeover',
-  'cityCourt',
+  'excellent',
+  'parkAction',
+  'scoreboard',
 );
 
-export const productHub = {
-  path: productBase,
-  title: t.products.title,
-  subtitle: t.products.subtitle,
-  description: 'Elite NBA 2K27 hack, HWID spoofer, account recovery, and unlock-all utilities for PC.',
-  buyUrl: checkoutPath('nba2k27'),
-};
+export function getProductHub(locale?: string | null) {
+  const t = getTranslations(locale);
+  const loc = normalizeLocale(locale);
+  return {
+    path: localizedInternalPath(loc, productBase),
+    title: t.products.title,
+    subtitle: t.products.subtitle,
+    description: localizeUiString(
+      'Elite NBA 2K27 hack, HWID spoofer, and unlock-all utilities for PC.',
+      loc,
+    ),
+    buyUrl: checkoutPath('nba2k27'),
+  };
+}
+
+/** @deprecated Use getProductHub(locale) */
+export const productHub = getProductHub('en');

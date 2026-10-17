@@ -2,6 +2,21 @@ export type { BlogBlock, BlogPostFull } from './blog/types';
 export { blogPosts } from './blog/posts';
 
 import { blogPosts } from './blog/posts';
+import type { BlogPostFull } from './blog/types';
+import { localizeUiString } from '../i18n/localeStringMap';
+import { normalizeLocale } from '../utils/locale';
+
+/** Strong locales: translate card metadata; article body stays English (light long-form). */
+export function localizeBlogPost<T extends Pick<BlogPostFull, 'title' | 'desc' | 'tag'>>(post: T, locale?: string | null): T {
+  const loc = normalizeLocale(locale);
+  if (loc === 'en') return post;
+  return {
+    ...post,
+    title: localizeUiString(post.title, loc),
+    desc: localizeUiString(post.desc, loc),
+    tag: localizeUiString(post.tag, loc),
+  };
+}
 
 export function getBlogPost(slug: string) {
   return blogPosts.find((p) => p.slug === slug);

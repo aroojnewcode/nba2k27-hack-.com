@@ -6,6 +6,7 @@ const root = process.cwd();
 const widths = [320, 400, 512, 640, 960];
 const dirs = [
   'public/images/gameplay',
+  'public/images/gameplay/hero',
   'public/images/blog',
 ];
 
@@ -15,7 +16,16 @@ async function optimizeDir(relativeDir) {
 
   const files = fs
     .readdirSync(dir)
-    .filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-\d+\.webp$/i.test(file));
+    .filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-\d+\.webp$/i.test(file))
+    .filter((file) => {
+      const base = file.replace(/\.(png|jpe?g)$/i, '');
+      const jpg = `${base}.jpg`;
+      const jpeg = `${base}.jpeg`;
+      if (/\.png$/i.test(file) && (fs.existsSync(path.join(dir, jpg)) || fs.existsSync(path.join(dir, jpeg)))) {
+        return false;
+      }
+      return true;
+    });
 
   await Promise.all(
     files.map(async (file) => {

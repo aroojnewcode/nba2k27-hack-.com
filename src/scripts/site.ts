@@ -1,3 +1,5 @@
+import { setupHeroEmbla } from './hero-embla.ts';
+
 function initFonts() {
   const root = document.documentElement;
 
@@ -108,6 +110,7 @@ function bootSite() {
   initInPageScroll();
   initSkipLink();
   initThemeMetaColor();
+  setupHeroEmbla();
 }
 
 if (document.readyState === 'loading') {

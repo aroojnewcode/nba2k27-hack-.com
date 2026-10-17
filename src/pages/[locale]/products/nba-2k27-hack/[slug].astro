@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getAllProductSlugs, getProductHub, getProductPage } from '../../../../data/products';
+import { pageTitle } from '../../../../config/seo';
+import { getPageSeoForLocale } from '../../../../config/localeSeo';
+import { localizedInternalPath, normalizeLocale } from '../../../../utils/locale';
+import { normalizeSeoPath } from '../../../../config/pageSeo';
+import { breadcrumbSchema, productSchema } from '../../../../utils/schema';
+import ProductDetail from '../../../../components/ProductDetail.astro';
+import { combineWithLocales } from '../../../../utils/localeStaticPaths';
+
+export function getStaticPaths() {
+  return combineWithLocales(getAllProductSlugs().map((slug) => ({ params: { slug } })));
+}
+
+const locale = normalizeLocale(Astro.currentLocale);
+const productHub = getProductHub(locale);
+const { slug } = Astro.params;
+const product = getProductPage(slug!, locale);
+
+if (!product) {
+  return Astro.redirect(productHub.path);
+}
+
+const pagePath = `${productHub.path}${product.slug}/`;
+const seoEntry = getPageSeoForLocale(locale, normalizeSeoPath(pagePath));
+const pageTitleText = seoEntry?.title ?? pageTitle(product.title);
+const pageDescription = seoEntry?.description ?? product.desc;
+const breadcrumbs = [
+  { name: 'Home', path: localizedInternalPath(locale, '/') },
+  { name: 'Products', path: productHub.path },
+  { name: product.title, path: pagePath },
+];
+---
+
+<BaseLayout
+  title={pageTitleText}
+  description={pageDescription}
+  jsonLd={[
+    productSchema({
+      name: product.title,
+      description: pageDescription,
+      url: pagePath,
+      offerUrl: product.buyUrl,
+      productSlug: product.slug,
+      image: product.images[0]?.src,
+      sku: product.slug,
+    }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <ProductDetail product={product} breadcrumbs={breadcrumbs} />
+</BaseLayout>

@@ -47,7 +47,9 @@ html:not(.dark) .hero-image-slider {
 .hero-image-slider__nav {
   position: absolute;
   top: 50%;
-  z-index: 20;
+  z-index: 30;
+  pointer-events: auto;
+  cursor: pointer;
   display: inline-flex;
   width: 2.5rem;
   height: 2.5rem;
@@ -82,8 +84,8 @@ html:not(.dark) .hero-image-slider {
 }
 
 .hero-image-slider__nav:disabled {
-  opacity: 0.35;
-  pointer-events: none;
+  opacity: 0.85;
+  pointer-events: auto;
 }
 
 .hero-image-slider__nav svg {

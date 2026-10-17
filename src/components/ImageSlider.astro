@@ -78,22 +78,20 @@ const imageWidths = isHero ? HERO_IMAGE_WIDTHS : undefined;
           </CarouselItem>
         ))}
       </CarouselContent>
-      {images.length > 1 && (
+      {!isHero && images.length > 1 && (
         <>
-          <CarouselPrevious
-            class:list={[
-              isHero ? 'hero-image-slider__nav hero-image-slider__nav--prev' : 'left-2',
-            ]}
-          />
-          <CarouselNext
-            class:list={[
-              isHero ? 'hero-image-slider__nav hero-image-slider__nav--next' : 'right-2',
-            ]}
-          />
+          <CarouselPrevious class="left-2" />
+          <CarouselNext class="right-2" />
         </>
       )}
     </div>
   </Carousel>
+  {isHero && images.length > 1 && (
+    <>
+      <CarouselPrevious class="hero-image-slider__nav hero-image-slider__nav--prev" />
+      <CarouselNext class="hero-image-slider__nav hero-image-slider__nav--next" />
+    </>
+  )}
   {isHero && images.length > 1 && (
     <div class="pointer-events-none absolute inset-x-2 bottom-3 flex justify-center" data-hero-embla-dots>
       <div
@@ -122,16 +120,16 @@ const imageWidths = isHero ? HERO_IMAGE_WIDTHS : undefined;
   )}
 </div>
 
-{isHero ? (
+{isHero && images.length > 1 && (
   <script>
     import { setupHeroEmbla } from '../scripts/hero-embla.ts';
     setupHeroEmbla();
   </script>
-) : (
+)}
+{!isHero &&
   images.length > 1 && (
     <script>
       import { setupDeferredCarousels } from '../scripts/deferred-carousel.ts';
       setupDeferredCarousels();
     </script>
-  )
-)}
+  )}

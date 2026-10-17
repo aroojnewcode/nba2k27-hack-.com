@@ -1,5 +1,8 @@
 ---
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+import { pageLocale } from '../utils/locale';
+
+const t = getTranslations(pageLocale(Astro));
 import { featureIcons } from '../data/sectionIcons';
 import SectionHeader from './SectionHeader.astro';
 import Icon from './icons/Icon.astro';

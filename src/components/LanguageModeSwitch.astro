@@ -1,24 +1,49 @@
 ---
-import { t } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { LOCALES, localeCodes, localeLabels, pageLocale, stripLocaleFromPath } from '../utils/locale';
+import {
+  Dropdown,
+  DropdownContent,
+  DropdownLinkItem,
+  DropdownTrigger,
+} from '@/components/starwind/dropdown';
+import { Button } from '@/components/starwind/button';
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+const currentLocale = pageLocale(Astro);
+const { path: localePath } = stripLocaleFromPath(Astro.url.pathname);
+const code = localeCodes[currentLocale];
 ---
 
 <div class:list={['lang-mode-switch', className]} data-lang-switch>
-  <span class="lang-mode-switch__label sr-only">{t.ui.languageLabel}</span>
-  <button
-    type="button"
-    class="lang-mode-switch__btn is-active"
-    aria-pressed="true"
-    disabled
-    title={t.ui.languageEn}
-  >
-    {t.ui.languageCode}
-  </button>
+  <span class="lang-mode-switch__label sr-only">Language</span>
+  <Dropdown>
+    <DropdownTrigger asChild>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        class="lang-mode-switch__btn h-8 min-w-10 px-2 text-[0.6875rem] font-bold uppercase tracking-wider"
+        aria-label="Choose language"
+      >
+        {code}
+      </Button>
+    </DropdownTrigger>
+    <DropdownContent align="end" class="min-w-[12rem]">
+      {LOCALES.map((loc) => (
+        <DropdownLinkItem href={getRelativeLocaleUrl(loc, localePath)} closeOnClick>
+          <span class="flex w-full items-center justify-between gap-3">
+            <span>{localeLabels[loc]}</span>
+            <span class="text-xs font-semibold uppercase text-muted-foreground">{localeCodes[loc]}</span>
+          </span>
+        </DropdownLinkItem>
+      ))}
+    </DropdownContent>
+  </Dropdown>
 </div>
 
 <style>
@@ -28,27 +53,12 @@ const { class: className } = Astro.props;
   }
 
   .lang-mode-switch__btn {
-    min-width: 2.5rem;
-    height: 2rem;
-    padding: 0 0.65rem;
     border-radius: 9999px;
     border: 1px solid color-mix(in oklch, var(--border) 80%, var(--primary) 20%);
     background: color-mix(in oklch, var(--muted) 40%, transparent);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--foreground);
-    cursor: default;
   }
 
-  .lang-mode-switch__btn.is-active {
-    border-color: color-mix(in oklch, var(--primary) 45%, var(--border));
-    background: color-mix(in oklch, var(--primary) 14%, var(--background));
-    color: var(--foreground);
-  }
-
-  html.dark .lang-mode-switch__btn.is-active {
+  html.dark .lang-mode-switch__btn {
     background: color-mix(in oklch, var(--primary) 22%, var(--background));
   }
 </style>

@@ -1,4 +1,15 @@
 import { PRODUCT_BASE } from '../config/site';
+import { LOCALES, localizedInternalPath, normalizeLocale } from './locale';
+
+function hasLocalePrefix(pathname: string): boolean {
+  for (const loc of LOCALES) {
+    const prefix = `/${loc}`;
+    if (pathname === prefix || pathname === `${prefix}/` || pathname.startsWith(`${prefix}/`)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /** Normalize internal paths to match trailingSlash: 'always' and canonical URLs. */
 export function withTrailingSlash(path: string): string {
@@ -26,7 +37,7 @@ export const LEGACY_PATH_MAP: Record<string, string> = {
   '/contact/': '/support/',
 };
 
-export function normalizeInternalPath(href: string): string {
+export function normalizeInternalPath(href: string, locale?: string | null): string {
   if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('/go/')) {
     return href;
   }
@@ -37,8 +48,13 @@ export function normalizeInternalPath(href: string): string {
 
   let pathname = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
   pathname = LEGACY_PATH_MAP[pathname] ?? pathname;
+  pathname = withTrailingSlash(pathname);
 
-  return withTrailingSlash(pathname) + hash;
+  if (!hasLocalePrefix(pathname)) {
+    pathname = localizedInternalPath(locale ?? 'en', pathname);
+  }
+
+  return pathname + hash;
 }
 
 export const ROUTES = {
@@ -55,15 +71,26 @@ export const ROUTES = {
   privacy: '/privacy/',
 } as const;
 
-export function blogPostPath(slug: string): string {
-  return `/blog/${slug}/`;
+export function blogPostPath(slug: string, locale?: string | null): string {
+  return localizedInternalPath(locale ?? 'en', `/blog/${slug}/`);
+}
+
+export function localizedRoute(
+  locale: string | null | undefined,
+  route: (typeof ROUTES)[keyof typeof ROUTES],
+): string {
+  return localizedInternalPath(normalizeLocale(locale), route);
 }
 
 /** @deprecated Use productPath — cheat tier pages live under products. */
-export function cheatPath(slug: string): string {
-  return productPath(slug);
+export function cheatPath(slug: string, locale?: string | null): string {
+  return productPath(slug, locale);
 }
 
-export function productPath(slug: string): string {
-  return `${PRODUCT_BASE}${slug}/`;
+export function productPath(slug: string, locale?: string | null): string {
+  return localizedInternalPath(locale ?? 'en', `${PRODUCT_BASE}${slug}/`);
+}
+
+export function productsUtilitiesPath(locale?: string | null): string {
+  return localizedInternalPath(locale ?? 'en', `${PRODUCT_BASE}utilities/`);
 }

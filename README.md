@@ -35,15 +35,23 @@ npm run build
 npm run preview
 ```
 
+**Deploy:** Publish only the **`dist/`** folder (Astro output). Do not upload the repo root—especially the legacy `/index.html` at project root, which is not part of the site.
+
+Optional after build: `node scripts/seo-baseline.mjs` refreshes [`.seo-baseline/fields.txt`](.seo-baseline/fields.txt) for SEO regression checks.
+
 ## SEO & search consoles
 
-1. Copy `.env.example` to `.env` (and set the same variables in your host’s production env).
-2. Required for ownership + indexing:
-   - `PUBLIC_GOOGLE_SITE_VERIFICATION` — HTML tag value from [Google Search Console](https://search.google.com/search-console)
+1. Copy `.env.example` to `.env` for local builds (verification tags are baked in at build time).
+2. Set the **same variables** in **Cloudflare Pages → Settings → Environment variables** (Production, and Preview if you want them on preview builds):
+   - `PUBLIC_GOOGLE_SITE_VERIFICATION` — `content` value from the HTML tag in [Google Search Console](https://search.google.com/search-console)
    - `PUBLIC_BING_SITE_VERIFICATION` — `msvalidate.01` content from [Bing Webmaster Tools](https://www.bing.com/webmasters)
-   - `INDEXNOW_KEY` — random 32+ char string; `npm run build` writes `dist/{KEY}.txt` and pings IndexNow (host must serve that file at `https://nba2k27hack.net/{KEY}.txt`)
-3. After deploy, submit `https://nba2k27hack.net/sitemap.xml` in GSC and Bing.
-4. Forum **hub** (`/forum/`) is in the sitemap; thread URLs are `noindex, follow` and **excluded** from the sitemap.
-5. Re-run Lighthouse on the live URL after deploy (CDN/Brotli affects performance scores).
+   - `INDEXNOW_KEY` — random 32+ character string (letters/numbers)
+   - `INDEXNOW_HOST` — `nba2k27hack.net` (optional; default in `scripts/indexnow.mjs`)
+   - `PUBLIC_DISCORD_INVITE_URL` — your Discord invite (hero **Join Discord** button)
+3. Trigger a **production build** after env vars are set so meta verification tags and IndexNow run (`npm run build` writes `dist/{INDEXNOW_KEY}.txt` and pings IndexNow when the key is set).
+4. Confirm `https://nba2k27hack.net/{INDEXNOW_KEY}.txt` returns the key as plain text.
+5. Submit `https://nba2k27hack.net/sitemap.xml` in GSC and Bing.
+6. Forum **hub** (`/forum/`) is in the sitemap; thread URLs are `noindex, follow` and **excluded** from the sitemap.
+7. Re-run Lighthouse / PageSpeed on the live URL after deploy (CDN/Brotli affects performance scores).
 
 Redirects for legacy `/products/dota-2-cheats/*` and `/cheats/*` live in `astro.config.mjs` only.

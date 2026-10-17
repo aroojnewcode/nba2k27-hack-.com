@@ -1,7 +1,12 @@
 ---
 import type { ProductSlide } from '../data/products';
 import ResponsiveImage from './ResponsiveImage.astro';
-import { THUMB_IMAGE_WIDTHS } from '../utils/responsiveImage';
+import {
+  DEFAULT_IMAGE_WIDTHS,
+  THUMB_IMAGE_WIDTHS,
+  defaultWebpSrc,
+  responsiveSrcSet,
+} from '../utils/responsiveImage';
 import { Badge } from '@/components/starwind/badge';
 
 interface Props {
@@ -58,8 +63,9 @@ const first = images[0];
             aria-label={`Screenshot ${i + 1}`}
             data-product-gallery-thumb
             data-index={i}
-            data-src={img.src}
             data-alt={img.alt}
+            data-main-src={defaultWebpSrc(img.src, DEFAULT_IMAGE_WIDTHS)}
+            data-main-srcset={responsiveSrcSet(img.src, DEFAULT_IMAGE_WIDTHS)}
           >
             <ResponsiveImage
               src={img.src}
@@ -84,17 +90,21 @@ const first = images[0];
       if (root.hasAttribute('data-gallery-bound')) return;
       root.setAttribute('data-gallery-bound', '');
 
-      const main = root.querySelector<HTMLImageElement>('.product-gallery__image');
+      const mainWrap = root.querySelector('.product-gallery__main');
+      const main = mainWrap?.querySelector<HTMLImageElement>('img.product-gallery__image');
+      const mainSource = mainWrap?.querySelector<HTMLSourceElement>('source[type="image/webp"]');
       const thumbs = root.querySelectorAll<HTMLButtonElement>('[data-product-gallery-thumb]');
       if (!main || !thumbs.length) return;
 
       thumbs.forEach((thumb) => {
         thumb.addEventListener('click', () => {
           const alt = thumb.getAttribute('data-alt');
-          const thumbImg = thumb.querySelector('img');
-          if (thumbImg?.src) {
-            main.src = thumbImg.src;
-            if (thumbImg.srcset) main.srcset = thumbImg.srcset;
+          const mainSrc = thumb.getAttribute('data-main-src');
+          const mainSrcSet = thumb.getAttribute('data-main-srcset');
+          if (mainSrc) main.src = mainSrc;
+          if (mainSrcSet) {
+            main.srcset = mainSrcSet;
+            if (mainSource) mainSource.srcset = mainSrcSet;
           }
           if (alt) main.alt = alt;
           thumbs.forEach((t) => {

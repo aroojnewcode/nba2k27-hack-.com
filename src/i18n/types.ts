@@ -244,6 +244,30 @@ export interface Translations {
     subtitle: string;
     items: FaqItem[];
   };
+  faqPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+  };
+  notFound: {
+    title: string;
+    description: string;
+    heading: string;
+    body: string;
+    backHome: string;
+    viewProducts: string;
+    viewElite: string;
+  };
+  productsUtilities: {
+    breadcrumb: string;
+    title: string;
+    subtitle: string;
+    tableUtility: string;
+    tableBestFor: string;
+    tableLink: string;
+    viewCategory: string;
+    includes: string;
+  };
   footer: {
     tagline: string;
     explore: string;

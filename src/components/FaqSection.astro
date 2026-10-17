@@ -16,6 +16,7 @@ interface Props {
   subtitle?: string;
   titleId?: string;
   showFilters?: boolean;
+  showSectionHeader?: boolean;
   filterTopics?: FaqTopic[];
   centered?: boolean;
   /** FAQ column alignment (product pages use left) */
@@ -31,6 +32,7 @@ const {
   subtitle = 'Compatibility, bans and access—no vague promises.',
   titleId = 'faq-heading',
   showFilters = false,
+  showSectionHeader = true,
   filterTopics,
   centered = false,
   contentAlign = 'center',
@@ -41,15 +43,14 @@ const {
 const topicLabels: Record<FaqTopic, string> = {
   all: 'All',
   plans: 'Plans',
-  esp: 'Map hack / ESP',
-  scripts: 'Scripts',
+  features: 'Features',
   safety: 'Safety',
   products: 'Products',
   blog: 'Blog',
   setup: 'Setup',
 };
 
-const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'products'] as FaqTopic[]);
+const filters = filterTopics ?? (['all', 'plans', 'features', 'safety', 'products'] as FaqTopic[]);
 ---
 
 <section
@@ -60,13 +61,17 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
 >
   <div class="mx-auto max-w-6xl px-5">
     <div class:list={[contentAlign === 'center' && 'mx-auto max-w-3xl', contentAlign === 'left' && 'product-detail__narrow max-w-3xl']}>
-    <SectionHeader
-      eyebrow={eyebrow}
-      title={title}
-      desc={subtitle}
-      titleId={titleId}
-      centered={centered}
-    />
+    {
+      showSectionHeader && (
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          desc={subtitle}
+          titleId={titleId}
+          centered={centered}
+        />
+      )
+    }
 
     {
       showFilters && (

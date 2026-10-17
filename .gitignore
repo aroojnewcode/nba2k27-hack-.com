@@ -27,4 +27,7 @@ pnpm-debug.log*
 # local audits / scratch
 lh-*.json
 lighthouse*.json
+
+# legacy static dump (not part of Astro build — deploy dist/ only)
+/index.html
 /nba*.png

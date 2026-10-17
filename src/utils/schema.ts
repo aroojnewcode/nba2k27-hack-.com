@@ -2,7 +2,9 @@ import type { FaqItem } from '../i18n/types';
 import { SUPPORT_EMAIL } from '../config/site';
 import { SITE_ORIGIN, absoluteAssetUrl, canonicalUrl, getOrganizationSameAs } from '../config/seo';
 import { getProductPlans } from '../data/productPricing';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+
+const t = getTranslations('en');
 
 const brandName = t.site.name;
 

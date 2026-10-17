@@ -1,0 +1,48 @@
+---
+export { localeStaticPaths as getStaticPaths } from '../../utils/localeStaticPaths';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import WorkflowSection from '../../components/WorkflowSection.astro';
+import FeaturesSection from '../../components/FeaturesSection.astro';
+import WhySetupSection from '../../components/WhySetupSection.astro';
+import ProductsSection from '../../components/ProductsSection.astro';
+import ContentSections from '../../components/ContentSections.astro';
+import { getTranslations } from '../../i18n';
+import { resolvePageSeo } from '../../config/seo';
+
+import { pageLocale } from '../../utils/locale';
+
+const locale = pageLocale(Astro);
+const t = getTranslations(locale);
+import { faqPageSchema, organizationSchema, websiteSchema } from '../../utils/schema';
+import { getLandingFaqs } from '../../data/faq';
+import { webpSrc } from '../../utils/responsiveImage';
+import { homeHeroBackground } from '../../data/heroImages';
+
+const seo = resolvePageSeo('/', locale);
+const homeFaqs = getLandingFaqs(locale);
+const heroLcpImage = webpSrc(homeHeroBackground, 512);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  jsonLd={[websiteSchema(), organizationSchema(), faqPageSchema(homeFaqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') })))]}
+>
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={heroLcpImage}
+    type="image/webp"
+    media="(min-width: 1024px)"
+    fetchpriority="high"
+  />
+  <HeroSection />
+  <WorkflowSection />
+  <ProductsSection />
+  <FeaturesSection />
+  <WhySetupSection />
+  <ContentSections />
+</BaseLayout>

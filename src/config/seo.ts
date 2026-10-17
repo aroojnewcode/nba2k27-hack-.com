@@ -1,8 +1,10 @@
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
 import { SITE_DOMAIN as INDEXNOW_HOST_NAME } from './site';
-import { getPageSeoEntry } from './pageSeo';
+import { normalizeSeoPath } from './pageSeo';
+import { getPageSeoForLocale } from './localeSeo';
+import { normalizeLocale, stripLocaleFromPath } from '../utils/locale';
 
-export const SITE_ORIGIN = `https://${t.site.domain}`;
+export const SITE_ORIGIN = `https://${getTranslations('en').site.domain}`;
 
 import { NBA_OG_IMAGE } from '../data/nbaImages';
 
@@ -40,13 +42,20 @@ export function absoluteAssetUrl(path: string): string {
   return `${SITE_ORIGIN}${normalized}`;
 }
 
-export function resolvePageSeo(pathname: string): { title: string; description: string } {
-  const entry = getPageSeoEntry(pathname);
+export function resolvePageSeo(
+  pathname: string,
+  locale?: string | null,
+): { title: string; description: string } {
+  const loc = normalizeLocale(locale);
+  const { path } = stripLocaleFromPath(pathname);
+  const normalized = normalizeSeoPath(path);
+  const entry = getPageSeoForLocale(loc, normalized);
   if (entry) return entry;
+  const t = getTranslations(loc);
   return { title: t.site.title, description: t.site.description };
 }
 
-export function pageTitle(keyword: string, brand = t.site.name): string {
+export function pageTitle(keyword: string, brand = getTranslations('en').site.name): string {
   const suffix = ` | ${brand}`;
   const max = 60;
   if (`${keyword}${suffix}`.length <= max) return `${keyword}${suffix}`;

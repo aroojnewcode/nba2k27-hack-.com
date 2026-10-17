@@ -3,10 +3,12 @@ import type { SiteFaqItem, FaqTopic } from '../data/faq';
 import FaqSection from './FaqSection.astro';
 import {
   SITE_FAQ_FILTER_TOPICS,
-  SITE_FAQ_SECTION_COPY,
   CONTEXTUAL_FAQ_SECTION_COPY,
   faqFilterTopicsForItems,
+  getSiteFaqSectionCopy,
 } from '../data/faq';
+import { localizeUiString } from '../i18n/localeStringMap';
+import { pageLocale } from '../utils/locale';
 
 interface Props {
   items: SiteFaqItem[];
@@ -16,6 +18,8 @@ interface Props {
   /** Full /faq/ experience — all topics chip bar */
   variant?: 'full' | 'contextual';
   filterTopics?: FaqTopic[];
+  showSectionHeader?: boolean;
+  showFilters?: boolean;
 }
 
 const {
@@ -25,12 +29,23 @@ const {
   class: className,
   variant = 'contextual',
   filterTopics: filterTopicsProp,
+  showSectionHeader: showSectionHeaderProp,
+  showFilters: showFiltersProp,
 } = Astro.props;
 
-const copy = variant === 'full' ? SITE_FAQ_SECTION_COPY : CONTEXTUAL_FAQ_SECTION_COPY;
+const locale = pageLocale(Astro);
+const copy =
+  variant === 'full'
+    ? getSiteFaqSectionCopy(locale)
+    : {
+        eyebrow: localizeUiString(CONTEXTUAL_FAQ_SECTION_COPY.eyebrow, locale),
+        title: localizeUiString(CONTEXTUAL_FAQ_SECTION_COPY.title, locale),
+        subtitle: localizeUiString(CONTEXTUAL_FAQ_SECTION_COPY.subtitle, locale),
+      };
 const filterTopics =
   filterTopicsProp ?? (variant === 'full' ? SITE_FAQ_FILTER_TOPICS : faqFilterTopicsForItems(items));
-const showFilters = filterTopics.length > 1;
+const showFilters = showFiltersProp ?? filterTopics.length > 1;
+const showSectionHeader = showSectionHeaderProp ?? true;
 ---
 
 <FaqSection
@@ -40,6 +55,7 @@ const showFilters = filterTopics.length > 1;
   title={copy.title}
   subtitle={copy.subtitle}
   titleId={titleId}
+  showSectionHeader={showSectionHeader}
   showFilters={showFilters}
   filterTopics={filterTopics}
   class={className}

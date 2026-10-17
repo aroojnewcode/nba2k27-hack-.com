@@ -3,6 +3,8 @@
  * After Search Console shows impressions, edit the matching path here and redeploy.
  */
 
+import { BLOG_INDEX_SEO_TITLE, HOME_SEO } from './homeSeo';
+
 export interface PageSeoEntry {
   title: string;
   description: string;
@@ -10,14 +12,13 @@ export interface PageSeoEntry {
 
 export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/': {
-    title: 'NBA 2K27 Hack | Auto Green, VC & MyCareer Tools',
-    description:
-      'NBA 2K27 hack for PC: auto green, MyCareer boosts, badge tools, and unlock-all utilities—updated every patch at nba2k27hack.net.',
+    title: HOME_SEO.title,
+    description: HOME_SEO.description,
   },
   '/products/nba-2k27-hack/': {
     title: 'NBA 2K27 Hack Products | Elite & Utilities',
     description:
-      'Elite NBA 2K27 hack plus HWID spoofer, account recovery, and unlock-all utilities for MyCareer, Park, and Rec on PC—compare tiers at nba2k27hack.net.',
+      'Elite NBA 2K27 hack plus HWID spoofer and unlock-all utilities for MyCareer, Park, and Rec on PC—compare tiers at nba2k27hack.net.',
   },
   '/products/nba-2k27-hack/elite/': {
     title: 'NBA 2K27 Elite Hack | Full MyCareer Suite',
@@ -27,7 +28,7 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/products/nba-2k27-hack/utilities/': {
     title: 'NBA 2K27 Utilities | HWID, Recovery & Unlock All',
     description:
-      'Choose HWID Spoofer, account recovery, or Unlock All—when each utility fits, setup notes, and links to full NBA 2K27 hack product pages.',
+      'Choose HWID Spoofer or Unlock All—when each utility fits, setup notes, and links to full NBA 2K27 hack product pages.',
   },
   '/products/nba-2k27-hack/ugc/': {
     title: 'NBA 2K27 Account Recovery (UGC) | Appeals & Disputes',
@@ -45,7 +46,7 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
       'Unlock All for NBA 2K27: preview courts, City Edition jerseys, and MyPlayer wardrobes locally on PC—standalone utility or bundled with Elite hack.',
   },
   '/blog/': {
-    title: 'NBA 2K27 Hack Guides & Patch Notes',
+    title: BLOG_INDEX_SEO_TITLE,
     description:
       'Setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for NBA 2K27 hack users on PC.',
   },

@@ -1,0 +1,63 @@
+---
+export { localeStaticPaths as getStaticPaths } from '../../utils/localeStaticPaths';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllFaqs } from '../../data/faq';
+import { resolvePageSeo } from '../../config/seo';
+import { breadcrumbSchema, faqPageSchema, webPageSchema } from '../../utils/schema';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SiteFaqSection from '../../components/SiteFaqSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { getTranslations } from '../../i18n';
+import { localizedInternalPath, pageLocale } from '../../utils/locale';
+
+const locale = pageLocale(Astro);
+const t = getTranslations(locale);
+const seo = resolvePageSeo('/faq/', locale);
+const breadcrumbs = [
+  { name: t.nav.find((l) => l.href === '/')?.label ?? 'Home', path: localizedInternalPath(locale, '/') },
+  { name: t.nav.find((l) => l.href === '/faq/')?.label ?? 'FAQ', path: localizedInternalPath(locale, '/faq/') },
+];
+
+const faqs = getAllFaqs(locale);
+---
+
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  jsonLd={[
+    webPageSchema({
+      name: 'FAQ — NBA 2K27 Hack & Products',
+      description:
+        'Answers about NBA 2K27 hack tiers, auto green, HWID tools, blog guides and checkout at nba2k27hack.net.',
+      url: '/faq/',
+    }),
+    faqPageSchema(faqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') }))),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <section class="border-b border-border bg-muted/10 py-8 md:py-12">
+    <div class="mx-auto max-w-6xl px-5">
+      <Breadcrumbs items={breadcrumbs} />
+      <div class="mt-6">
+        <SectionHeader
+          as="h1"
+          eyebrow={t.faqPage.eyebrow}
+          title={t.faqPage.title}
+          desc={t.faqPage.subtitle}
+          titleId="faq-page-title"
+        />
+      </div>
+    </div>
+  </section>
+
+  <SiteFaqSection
+    items={faqs}
+    variant="full"
+    titleId="faq-page-title"
+    showSectionHeader={false}
+    showFilters={false}
+    class="!py-8 md:!py-12"
+  />
+</BaseLayout>

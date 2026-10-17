@@ -1,10 +1,9 @@
 ---
 import "@/styles/starwind.css";
 import manrope400 from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
-import manrope500 from '@fontsource/manrope/files/manrope-latin-500-normal.woff2?url';
-import rajdhani600 from '@fontsource/rajdhani/files/rajdhani-latin-600-normal.woff2?url';
 import rajdhani700 from '@fontsource/rajdhani/files/rajdhani-latin-700-normal.woff2?url';
-import { t } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n';
 import {
   RSS_FEED_PATH,
   TWITTER_CREATOR,
@@ -16,6 +15,7 @@ import {
   GA_MEASUREMENT_ID,
   absoluteAssetUrl,
 } from '../config/seo';
+import { LOCALES, hreflangTags, htmlLang, normalizeLocale, pageLocale, stripLocaleFromPath } from '../utils/locale';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -36,6 +36,10 @@ interface Props {
 
 const GOOGLE_SITE_VERIFICATION = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined;
 const BING_SITE_VERIFICATION = import.meta.env.PUBLIC_BING_SITE_VERIFICATION as string | undefined;
+
+const currentLocale = pageLocale(Astro);
+const t = getTranslations(currentLocale);
+const { path: localeStrippedPath } = stripLocaleFromPath(Astro.url.pathname);
 
 const {
   title = t.site.title,
@@ -60,7 +64,7 @@ const robotsContent = noindex
 ---
 
 <!doctype html>
-<html lang="en" class="dark fonts-pending">
+<html lang={htmlLang(currentLocale)} class="dark fonts-pending">
   <head>
     <meta charset="UTF-8" />
     <script is:inline>
@@ -85,8 +89,20 @@ const robotsContent = noindex
     )}
     {BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={canonical} />
-    <link rel="alternate" hreflang="x-default" href={canonical} />
+    {
+      LOCALES.map((loc) => (
+        <link
+          rel="alternate"
+          hreflang={hreflangTags[loc]}
+          href={canonicalUrl(getRelativeLocaleUrl(loc, localeStrippedPath))}
+        />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={canonicalUrl(getRelativeLocaleUrl('en', localeStrippedPath))}
+    />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -102,8 +118,6 @@ const robotsContent = noindex
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <link rel="preload" href={manrope400} as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href={manrope500} as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href={rajdhani600} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={rajdhani700} as="font" type="font/woff2" crossorigin="anonymous" />
 
     <meta property="og:title" content={title} />

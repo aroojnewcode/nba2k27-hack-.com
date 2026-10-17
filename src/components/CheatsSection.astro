@@ -1,6 +1,13 @@
 ---
-import { t } from '../i18n';
-import { cheatPages } from '../data/products';
+import { getTranslations } from '../i18n';
+
+import { pageLocale } from '../utils/locale';
+
+const locale = pageLocale(Astro);
+const t = getTranslations(locale);
+import { getCheatPages } from '../data/products';
+
+const cheatPages = getCheatPages(locale);
 import { cheatTierIcons } from '../data/sectionIcons';
 import SectionHeader from './SectionHeader.astro';
 import CatalogCard from './CatalogCard.astro';
@@ -18,7 +25,7 @@ const s = t.cheats;
         <CatalogCard
           label={cheat.tier ?? cheat.name}
           title={cheat.title}
-          href={cheatPath(cheat.slug)}
+          href={cheatPath(cheat.slug, locale)}
           buyUrl={cheat.buyUrl}
           features={cheat.features}
           more={cheat.more}

@@ -1,18 +1,24 @@
 ---
 import '../styles/hero-section.css';
-import { t } from '../i18n';
-import { ROUTES } from '../utils/path';
-import { heroSlides } from '../data/products';
+import { discordInviteUrl } from '../config/discord';
+import { getTranslations } from '../i18n';
+import { localizedRoute, ROUTES } from '../utils/path';
+import { pageLocale } from '../utils/locale';
+
+const locale = pageLocale(Astro);
+const productsHref = localizedRoute(locale, ROUTES.products);
+import { homeHeroBackground, homeHeroSlides } from '../data/heroImages';
 import { compatibilityIcons, heroStatIcons, heroStatusPills } from '../data/sectionIcons';
-import { nbaGameplayImages } from '../data/nbaImages';
 import { webpSrc, HERO_IMAGE_WIDTHS } from '../utils/responsiveImage';
 import ImageSlider from './ImageSlider.astro';
 import Icon from './icons/Icon.astro';
 import { Button } from '@/components/starwind/button';
 import { Badge } from '@/components/starwind/badge';
 
+const t = getTranslations(locale);
 const h = t.hero;
-const heroBg = webpSrc(nbaGameplayImages.parkTakeover, HERO_IMAGE_WIDTHS[1] ?? 640);
+const discordHref = discordInviteUrl();
+const heroBg = webpSrc(homeHeroBackground, HERO_IMAGE_WIDTHS[1] ?? 640);
 
 const heroMarqueePills = [
   ...heroStatusPills,
@@ -49,7 +55,7 @@ const heroMarqueePills = [
         <div class="flex flex-wrap justify-start gap-3 sm:gap-4">
           <Button
             as="a"
-            href={ROUTES.products}
+            href={productsHref}
             data-scroll-target="products"
             variant="outline"
             size="lg"
@@ -60,7 +66,9 @@ const heroMarqueePills = [
           </Button>
           <Button
             as="a"
-            href={t.site.discord}
+            href={discordHref}
+            target="_blank"
+            rel="noopener noreferrer"
             variant="secondary"
             size="lg"
             class="hero-section__cta-discord rounded-xl"
@@ -74,7 +82,7 @@ const heroMarqueePills = [
 
       <div class="mx-auto flex w-full max-w-xl flex-col items-center gap-5 lg:mx-0 lg:max-w-none lg:items-end">
         <div class="hero-section__media w-full">
-          <ImageSlider images={heroSlides} id="hero-slider" variant="hero" />
+          <ImageSlider images={homeHeroSlides} id="hero-slider" variant="hero" />
         </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">
           {h.metrics.map((m, i) => (

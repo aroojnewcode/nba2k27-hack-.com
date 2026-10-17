@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
 import Icon from '../components/icons/Icon.astro';
 import { Button } from '@/components/starwind/button';
-import { ROUTES } from '../utils/path';
+import { localizedRoute, ROUTES } from '../utils/path';
 
+const t = getTranslations('en');
 ---
 
 <BaseLayout
@@ -20,12 +21,12 @@ import { ROUTES } from '../utils/path';
         That URL does not exist or may have moved. Head back to the homepage or browse cheat tiers and products.
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        <Button as="a" href={ROUTES.home} variant="primary">
+        <Button as="a" href={localizedRoute('en', ROUTES.home)} variant="primary">
           Back to home
           <Icon name="arrowRight" size={17} />
         </Button>
-        <Button as="a" href={ROUTES.products} variant="outline">View products</Button>
-        <Button as="a" href={ROUTES.productsElite} variant="outline">View Elite cheats</Button>
+        <Button as="a" href={localizedRoute('en', ROUTES.products)} variant="outline">View products</Button>
+        <Button as="a" href={localizedRoute('en', ROUTES.productsElite)} variant="outline">View Elite cheats</Button>
       </div>
     </div>
   </section>

@@ -1,6 +1,10 @@
 ---
 import '../styles/hack-menu-section.css';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+
+import { pageLocale } from '../utils/locale';
+
+const t = getTranslations(pageLocale(Astro));
 import ResponsiveImage from './ResponsiveImage.astro';
 import { nbaGameplayImages } from '../data/nbaImages';
 import { CARD_IMAGE_WIDTHS, webpSrc } from '../utils/responsiveImage';

@@ -5,7 +5,13 @@ import Icon from './icons/Icon.astro';
 import { CARD_IMAGE_SIZES, CARD_IMAGE_WIDTHS } from '../utils/responsiveImage';
 import { blogPostPath } from '../utils/path';
 import type { BlogPost } from '../i18n/types';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+
+import { pageLocale } from '../utils/locale';
+import { localizeBlogPost } from '../data/blog';
+
+const locale = pageLocale(Astro);
+const t = getTranslations(locale);
 import { getBlogPostTimestamp, getBlogReadMinutes } from '../data/blog';
 import { blogTagIcons } from '../data/sectionIcons';
 import type { IconName } from './icons/types';
@@ -24,10 +30,11 @@ interface Props {
   class?: string;
 }
 
-const { post, index = 0, eager = false, showDate = false, layout = 'default', class: className } =
+const { post: rawPost, index = 0, eager = false, showDate = false, layout = 'default', class: className } =
   Astro.props;
+const post = localizeBlogPost(rawPost, locale);
 const isFeatured = layout === 'featured';
-const href = blogPostPath(post.slug);
+const href = blogPostPath(post.slug, locale);
 const timestamp = getBlogPostTimestamp(post.date);
 const readMinutes = getBlogReadMinutes(post.readTime);
 const tagIcon: IconName = blogTagIcons[post.tag] ?? 'tag';
@@ -59,7 +66,7 @@ const tagIcon: IconName = blogTagIcons[post.tag] ?? 'tag';
   >
     <ResponsiveImage
       src={post.image}
-      alt=""
+      alt={post.title}
       width={isFeatured ? 960 : 640}
       height={isFeatured ? 540 : 360}
       widths={isFeatured ? undefined : CARD_IMAGE_WIDTHS}

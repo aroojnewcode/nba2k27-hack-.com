@@ -1,0 +1,39 @@
+---
+export { localeStaticPaths as getStaticPaths } from '../../utils/localeStaticPaths';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n';
+
+const locale = Astro.currentLocale ?? 'en';
+const t = getTranslations(locale);
+import { resolvePageSeo } from '../../config/seo';
+import LegalPage from '../../components/LegalPage.astro';
+import { breadcrumbSchema, webPageSchema } from '../../utils/schema';
+
+const content = t.legalPages.terms;
+const seo = resolvePageSeo('/terms/', locale);
+---
+
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  jsonLd={[
+    webPageSchema({
+      name: content.title,
+      description: content.description,
+      url: '/terms/',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Terms & Conditions', path: '/terms/' },
+    ]),
+  ]}
+>
+  <LegalPage
+    title={content.title}
+    description={content.description}
+    breadcrumbLabel="Terms & Conditions"
+    sections={content.sections}
+  />
+</BaseLayout>

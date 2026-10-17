@@ -1,5 +1,10 @@
 ---
-import { cheatPages } from '../data/products';
+import { getCheatPages } from '../data/products';
+
+import { pageLocale } from '../utils/locale';
+
+const locale = pageLocale(Astro);
+const cheatPages = getCheatPages(locale);
 import { cheatTierIcons } from '../data/sectionIcons';
 import Icon from './icons/Icon.astro';
 import type { IconName } from './icons/types';
@@ -33,7 +38,7 @@ const tiers = cheatPages.map((c) => ({
   slug: c.slug,
   name: c.name,
   icon: cheatTierIcons[c.name] ?? 'crosshair',
-  href: productPath(c.slug),
+  href: productPath(c.slug, locale),
 }));
 
 const tierSlugs = tiers.map((t) => t.slug);

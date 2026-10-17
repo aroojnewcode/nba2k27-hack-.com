@@ -1,3 +1,5 @@
+export declare const ZADEYO_NBA_2K27_CHECKOUT: string;
+
 export declare const CHECKOUT_URLS: {
   readonly nba2k27: string;
   readonly skinChanger: string;

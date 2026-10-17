@@ -1,6 +1,10 @@
 ---
 import '../styles/support-section.css';
-import { t } from '../i18n';
+import { getTranslations } from '../i18n';
+
+import { pageLocale } from '../utils/locale';
+
+const t = getTranslations(pageLocale(Astro));
 import Icon from './icons/Icon.astro';
 import type { IconName } from './icons/types';
 import { Button } from '@/components/starwind/button';
