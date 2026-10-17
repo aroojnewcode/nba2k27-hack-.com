@@ -4,7 +4,7 @@
  */
 
 /** Paste your real invite here if env is missing or invalid. */
-export const DEFAULT_DISCORD_INVITE = 'https://discord.gg/YOUR_INVITE';
+export const DEFAULT_DISCORD_INVITE = 'https://discord.gg/nba2k27hack';
 
 export const DISCORD_INVITE_URL = (
   import.meta.env.PUBLIC_DISCORD_INVITE_URL as string | undefined

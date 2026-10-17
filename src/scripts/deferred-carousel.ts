@@ -1,3 +1,5 @@
+import { emblaWatchDragAllowInteractive } from './embla-watch-drag.ts';
+
 type CarouselRoot = HTMLElement;
 
 function getCarouselRoot(wrap: CarouselRoot): CarouselRoot | null {
@@ -30,7 +32,7 @@ async function initDeferredCarousel(wrap: HTMLElement) {
   wrap.dataset.deferredCarouselReady = 'true';
 
   const { createCarousel } = await import('@starwind-ui/runtime/carousel');
-  createCarousel(root);
+  createCarousel(root, { opts: { watchDrag: emblaWatchDragAllowInteractive } });
 }
 
 function bootDeferredCarousels(scope: ParentNode = document) {

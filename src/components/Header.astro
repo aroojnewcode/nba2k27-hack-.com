@@ -92,7 +92,14 @@ const purchaseUrl = checkoutPath('nba2k27');
               </a>
             ))}
           </nav>
-          <Button as="a" href={purchaseUrl} variant="primary" class="w-full justify-center" aria-label={t.ui.checkoutAria}>
+          <Button
+            as="a"
+            href={purchaseUrl}
+            variant="primary"
+            class="w-full justify-center"
+            aria-label={t.ui.checkoutAria}
+            data-external-cta
+          >
             {t.ui.browseCheatsMobile}
           </Button>
           <div class="flex items-center justify-center gap-3 pt-1">

@@ -67,12 +67,11 @@ const heroMarqueePills = [
           <Button
             as="a"
             href={discordHref}
-            target="_blank"
-            rel="noopener noreferrer"
             variant="secondary"
             size="lg"
-            class="hero-section__cta-discord rounded-xl"
+            class="hero-section__cta-discord relative z-[2] rounded-xl"
             aria-label={t.ui.discordAria}
+            data-external-cta
           >
             <Icon name="messageCircle" size={18} />
             {h.ctaDiscord}

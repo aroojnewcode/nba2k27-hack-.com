@@ -75,8 +75,9 @@ const isSinglePlan = plans.length === 1;
         href={checkoutUrlWithPlan(product.buyUrl, defaultPlan.id)}
         variant="primary"
         size="lg"
-        class="w-full rounded-xl"
+        class="relative z-[2] w-full rounded-xl"
         data-checkout-buy
+        data-external-cta
       >
         Buy now
         <Icon name="arrowRight" size={17} />

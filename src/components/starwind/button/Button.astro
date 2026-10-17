@@ -21,6 +21,7 @@ const {
   "data-slot": dataSlot = "button",
   tabindex,
   class: className,
+  type: buttonType,
   ...rest
 } = Astro.props;
 ---
@@ -43,6 +44,7 @@ const {
       class={button({ variant, size, class: className })}
       disabled={disabled}
       focusableWhenDisabled={focusableWhenDisabled}
+      type={buttonType}
       {...rest}
       data-slot={dataSlot}
     >

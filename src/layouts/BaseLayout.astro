@@ -165,14 +165,7 @@ const robotsContent = noindex
     </main>
     <Footer />
     <script>
-      const bootSite = () => {
-        void import('../scripts/site.ts');
-      };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootSite, { once: true });
-      } else {
-        bootSite();
-      }
+      import '../scripts/site.ts';
     </script>
     {
       GA_MEASUREMENT_ID && (

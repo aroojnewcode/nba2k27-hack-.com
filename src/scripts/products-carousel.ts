@@ -1,3 +1,5 @@
+import { emblaWatchDragAllowInteractive } from './embla-watch-drag.ts';
+
 function getCarouselRoot(wrap: HTMLElement): HTMLElement | null {
   return wrap.querySelector<HTMLElement>('[data-sw-carousel]');
 }
@@ -36,7 +38,9 @@ async function bindProductsCarousel(wrap: HTMLElement) {
   const { createCarousel } = await import('@starwind-ui/runtime/carousel');
 
   try {
-    const carousel = createCarousel(carouselRoot) as CarouselHandle;
+    const carousel = createCarousel(carouselRoot, {
+      opts: { watchDrag: emblaWatchDragAllowInteractive },
+    }) as CarouselHandle;
     const onUpdate = () => syncProductsCarousel(wrap, carouselRoot, carousel);
     onUpdate();
     carousel.api.on('select', onUpdate);

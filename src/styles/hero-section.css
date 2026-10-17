@@ -244,6 +244,12 @@ html.dark .hero-section--immersive .hero-marquee-badge {
   z-index: 1;
 }
 
+.hero-section--immersive .hero-section__inner a.hero-section__cta-discord,
+.hero-section--immersive .hero-section__inner a.hero-section__cta-outline {
+  position: relative;
+  z-index: 20;
+}
+
 .hero-section__kicker {
   display: inline-flex;
   align-items: center;

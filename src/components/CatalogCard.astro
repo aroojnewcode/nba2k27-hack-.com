@@ -103,7 +103,14 @@ const statusBadgeIcon = (text: string): IconName => {
     </ul>
   </CardContent>
   <CardFooter class="flex flex-col gap-2 sm:flex-row">
-    <Button as="a" href={buyUrl} variant="primary" size="sm" class="w-full sm:flex-1">
+    <Button
+      as="a"
+      href={buyUrl}
+      variant="primary"
+      size="sm"
+      class="relative z-[2] w-full sm:flex-1"
+      data-external-cta
+    >
       {buyLabel}
       <Icon name="arrowRight" size={17} />
     </Button>
