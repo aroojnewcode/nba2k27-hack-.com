@@ -24,6 +24,46 @@ export const HOME_SEO_BY_LOCALE: Record<SiteLocale, { title: string; description
     description:
       'NBA 2K27 Hack für MyCareer, Park und Rec auf PC—Auto Green, Shot Meter, Badge-Editor, VC-Tools und Unlock All nach jedem Patch auf nba2k27hack.net.',
   },
+  'zh-cn': {
+    title: 'NBA 2K27 外挂与辅助 | PC 自动绿、徽章与 VC',
+    description:
+      'NBA 2K27 PC 版 MyCareer、Park 与 Rec 外挂—自动绿、投篮条、徽章编辑、VC 工具与 Unlock All，每次更新后在 nba2k27hack.net 同步维护。',
+  },
+  it: {
+    title: 'Hack e cheat NBA 2K27 | Auto green, badge e VC per PC',
+    description:
+      'Hack NBA 2K27 per MyCareer, Park e Rec su PC—auto green, shot meter, editor badge, strumenti VC e Unlock All aggiornati a ogni patch su nba2k27hack.net.',
+  },
+  ar: {
+    title: 'هاك وغش NBA 2K27 | auto green وشارات وVC للكمبيوتر',
+    description:
+      'هاك NBA 2K27 لـ MyCareer وPark وRec على PC—auto green ومقياس التصويب ومحرر الشارات وأدوات VC وUnlock All محدّث مع كل تحديث على nba2k27hack.net.',
+  },
+  nl: {
+    title: 'NBA 2K27 hack & cheats | Auto green, badges en VC voor PC',
+    description:
+      'NBA 2K27 hack voor MyCareer, Park en Rec op PC—auto green, shot meter, badge-editor en VC-tools op nba2k27hack.net.',
+  },
+  tr: {
+    title: 'NBA 2K27 hack ve hileler | PC için auto green, rozet ve VC',
+    description:
+      'NBA 2K27 hack—MyCareer, Park ve Rec için auto green, shot meter ve VC araçları nba2k27hack.net üzerinde.',
+  },
+  pl: {
+    title: 'Hack i cheaty NBA 2K27 | Auto green, odznaki i VC na PC',
+    description:
+      'Hack NBA 2K27 na PC—MyCareer, Park i Rec, auto green, shot meter i narzędzia VC na nba2k27hack.net.',
+  },
+  pt: {
+    title: 'Hack e cheats NBA 2K27 | Auto green, badges e VC para PC',
+    description:
+      'Hack NBA 2K27 para MyCareer, Park e Rec no PC—ferramentas auto green e VC em nba2k27hack.net.',
+  },
+  id: {
+    title: 'Hack & cheat NBA 2K27 | Auto green, badge & VC untuk PC',
+    description:
+      'Hack NBA 2K27 untuk MyCareer, Park, dan Rec di PC—auto green, shot meter, dan utilitas VC di nba2k27hack.net.',
+  },
 };
 
 const BLOG_INDEX_ES = 'Guías del hack NBA 2K27 y notas de parche';
@@ -37,6 +77,14 @@ export const BLOG_INDEX_TITLE_BY_LOCALE: Record<SiteLocale, string> = {
   'pt-br': BLOG_INDEX_PT,
   fr: BLOG_INDEX_FR,
   de: BLOG_INDEX_DE,
+  'zh-cn': 'NBA 2K27 外挂指南与更新说明',
+  it: 'Guide hack NBA 2K27 e note patch',
+  ar: 'أدلة هاك NBA 2K27 وملاحظات التحديث',
+  nl: 'NBA 2K27 hack-gidsen en patchnotities',
+  tr: 'NBA 2K27 hack rehberleri ve yama notları',
+  pl: 'Poradniki hack NBA 2K27 i notatki patchy',
+  pt: 'Guias hack NBA 2K27 e notas de patch',
+  id: 'Panduan hack NBA 2K27 dan catatan patch',
 };
 
 function pageSeoEn(): Record<string, PageSeoEntry> {
@@ -60,7 +108,7 @@ function pageSeoEn(): Record<string, PageSeoEntry> {
     '/blog/': {
       title: BLOG_INDEX_SEO_TITLE,
       description:
-        'Setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for NBA 2K27 hack users on PC.',
+        'NBA 2K27 hack setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for PC players—guides and patch notes on nba2k27hack.net.',
     },
     '/forum/': {
       title: 'NBA 2K27 Community Forum | NBA 2K27 HACK',
@@ -83,9 +131,9 @@ function pageSeoEn(): Record<string, PageSeoEntry> {
         'How nba2k27hack.net collects and uses analytics, cookies, and contact data when you browse NBA 2K27 hack pages, checkout, or request support on PC.',
     },
     '/about/': {
-      title: 'About NBA 2K27 Hack | PC Tools, Guides & Status',
+      title: 'Status – About NBA 2K27 HACK | PC Tools & Guides',
       description:
-        'Learn what NBA 2K27 HACK publishes—Elite hack tiers, utilities, patch status, and setup guides for MyCareer, Park, and Rec players on PC.',
+        'Live patch status, loader updates, and operator notes for NBA 2K27 HACK—what we publish, how support works, and setup guides for PC MyCareer, Park, and Rec.',
     },
     '/support/': {
       title: 'Support & Contact | NBA 2K27 HACK',
@@ -212,6 +260,96 @@ const PAGE_SEO_LOCALIZED: Record<SiteLocale, Record<string, PageSeoEntry>> = {
       description:
         'Fragen zu Hack-Setup, Auto Green, Park-Meta, Patches, Elite und HWID—Themen auf nba2k27hack.net durchsuchen.',
     },
+  },
+  'zh-cn': {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE['zh-cn'],
+    '/blog/': {
+      title: BLOG_INDEX_TITLE_BY_LOCALE['zh-cn'],
+      description: 'NBA 2K27 外挂安装指南、Elite 技巧、更新日清单与 Park/Rec 配置建议。',
+    },
+    '/faq/': {
+      title: '常见问题 | NBA 2K27 外挂、产品与安装',
+      description: '关于 Elite、自动绿、投篮条、HWID 伪装、Unlock All、结账与安全性的 NBA 2K27 PC 解答。',
+    },
+    '/products/nba-2k27-hack/': {
+      title: 'NBA 2K27 外挂产品 | Elite 与工具',
+      description:
+        'NBA 2K27 Elite 外挂、HWID 伪装与 Unlock All，适用于 MyCareer、Park 与 Rec PC 版—在 nba2k27hack.net 对比方案。',
+    },
+    '/forum/': {
+      title: 'NBA 2K27 论坛 | NBA 2K27 HACK 社区',
+      description: '外挂安装、自动绿、Park meta、更新、Elite 与 HWID 相关讨论—在 nba2k27hack.net 浏览主题。',
+    },
+  },
+  it: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.it,
+    '/blog/': {
+      title: BLOG_INDEX_TITLE_BY_LOCALE.it,
+      description:
+        'Guide setup, consigli Elite, checklist patch e config Park/Rec per utenti hack NBA 2K27 su PC.',
+    },
+    '/faq/': {
+      title: 'FAQ | Hack NBA 2K27, prodotti e setup',
+      description:
+        'Risposte su Elite, auto green, shot meter, HWID spoofer, Unlock All, checkout e sicurezza per NBA 2K27 su PC.',
+    },
+    '/products/nba-2k27-hack/': {
+      title: 'Prodotti hack NBA 2K27 | Elite e utility',
+      description:
+        'Hack Elite NBA 2K27 più HWID spoofer e Unlock All per MyCareer, Park e Rec su PC—confronta i piani su nba2k27hack.net.',
+    },
+    '/forum/': {
+      title: 'Forum NBA 2K27 | Community NBA 2K27 HACK',
+      description:
+        'Domande su setup hack, auto green, meta Park, patch, Elite e HWID—esplora gli argomenti su nba2k27hack.net.',
+    },
+  },
+  ar: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.ar,
+    '/blog/': {
+      title: BLOG_INDEX_TITLE_BY_LOCALE.ar,
+      description: 'أدلة الإعداد ونصائح Elite وقوائم التحديث وإعدادات Park/Rec لمستخدمي هاك NBA 2K27 على PC.',
+    },
+    '/faq/': {
+      title: 'الأسئلة الشائعة | هاك NBA 2K27 والمنتجات',
+      description: 'إجابات عن Elite وauto green وHWID spoofer وUnlock All والدفع والأمان لـ NBA 2K27 على PC.',
+    },
+    '/products/nba-2k27-hack/': {
+      title: 'منتجات هاك NBA 2K27 | Elite وأدوات',
+      description: 'هاك Elite NBA 2K27 وHWID spoofer وUnlock All لـ MyCareer وPark وRec على PC—قارن على nba2k27hack.net.',
+    },
+    '/forum/': {
+      title: 'منتدى NBA 2K27 | مجتمع NBA 2K27 HACK',
+      description: 'أسئلة حول إعداد الهاك وauto green وPark والباتش وElite وHWID على nba2k27hack.net.',
+    },
+  },
+  nl: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.nl,
+    '/blog/': { title: BLOG_INDEX_TITLE_BY_LOCALE.nl, description: pageSeoEn()['/blog/']!.description },
+  },
+  tr: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.tr,
+    '/blog/': { title: BLOG_INDEX_TITLE_BY_LOCALE.tr, description: pageSeoEn()['/blog/']!.description },
+  },
+  pl: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.pl,
+    '/blog/': { title: BLOG_INDEX_TITLE_BY_LOCALE.pl, description: pageSeoEn()['/blog/']!.description },
+  },
+  pt: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.pt,
+    '/blog/': { title: BLOG_INDEX_TITLE_BY_LOCALE.pt, description: pageSeoEn()['/blog/']!.description },
+  },
+  id: {
+    ...pageSeoEn(),
+    '/': HOME_SEO_BY_LOCALE.id,
+    '/blog/': { title: BLOG_INDEX_TITLE_BY_LOCALE.id, description: pageSeoEn()['/blog/']!.description },
   },
 };
 

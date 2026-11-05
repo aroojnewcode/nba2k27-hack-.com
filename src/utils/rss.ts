@@ -34,7 +34,7 @@ export function buildRssFeed(): string {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>NBA 2K27 HACK Blog</title>
-    <link>${SITE_ORIGIN}/blog/</link>
+    <link>${SITE_ORIGIN}/en/blog/</link>
     <description>NBA 2K27 hack guides, patch notes, and setup walkthroughs from nba2k27hack.net.</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>

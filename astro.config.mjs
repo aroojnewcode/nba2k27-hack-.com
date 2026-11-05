@@ -2,8 +2,6 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { sitemapSerialize } from './src/config/sitemap.ts';
-import { buildForumLegacyRedirects } from './scripts/forum-redirect-map.mjs';
-
 const productHub = '/products/nba-2k27-hack/';
 const productHubEn = '/en/products/nba-2k27-hack/';
 
@@ -12,7 +10,7 @@ export default defineConfig({
   trailingSlash: 'always',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'es', 'pt-br', 'fr', 'de'],
+    locales: ['en', 'es', 'pt-br', 'fr', 'de', 'zh-cn', 'it', 'ar', 'nl', 'tr', 'pl', 'pt', 'id'],
     routing: {
       prefixDefaultLocale: true,
     },
@@ -24,14 +22,6 @@ export default defineConfig({
     '/cheats/elite/': `${productHubEn}elite/`,
     '/cheats/compare/': '/en/blog/nba-2k27-lite-vs-elite/',
     '/contact/': '/support/',
-    '/blog/': '/en/blog/',
-    '/faq/': '/en/faq/',
-    '/forum/': '/en/forum/',
-    ...buildForumLegacyRedirects(),
-    '/about/': '/en/about/',
-    '/support/': '/en/support/',
-    '/privacy/': '/en/privacy/',
-    '/terms/': '/en/terms/',
     '/products/nba-2k27-hack/': productHubEn,
     '/products/nba-2k27-hack/utilities/': `${productHubEn}utilities/`,
     '/products/nba-2k27-hack/elite/': `${productHubEn}elite/`,
@@ -60,8 +50,17 @@ export default defineConfig({
       filter: (page) => {
         if (page.includes('/404') || page.includes('/go/')) return false;
         try {
-          const path = new URL(page, 'https://nba2k27hack.net').pathname.replace(/\/$/, '') || '/';
-          if (path.startsWith('/forum/') && path !== '/forum') return false;
+          let path = new URL(page, 'https://nba2k27hack.net').pathname;
+          path = path.endsWith('/') ? path : `${path}/`;
+          if (path === '/') return false;
+          if (path.startsWith('/forum/') && path !== '/forum/') return false;
+          const localePrefix =
+            /^\/(en|es|pt-br|fr|de|zh-cn|it|ar|nl|tr|pl|pt|id)(\/|$)/;
+          if (!localePrefix.test(path)) {
+            const legacy =
+              /^\/(blog|products|faq|forum|about|support|privacy|terms)(\/|$)/;
+            if (legacy.test(path)) return false;
+          }
         } catch {
           return true;
         }

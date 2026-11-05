@@ -48,7 +48,7 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/blog/': {
     title: BLOG_INDEX_SEO_TITLE,
     description:
-      'Setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for NBA 2K27 hack users on PC.',
+      'NBA 2K27 hack setup guides, Elite tier tips, patch-day checklists, and Park/Rec config advice for PC players—guides and patch notes on nba2k27hack.net.',
   },
   '/forum/': {
     title: 'NBA 2K27 Community Forum | NBA 2K27 HACK',
@@ -71,9 +71,9 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
       'How nba2k27hack.net collects and uses analytics, cookies, and contact data when you browse NBA 2K27 hack pages, checkout, or request support on PC.',
   },
   '/about/': {
-    title: 'About NBA 2K27 Hack | PC Tools, Guides & Status',
+    title: 'Status – About NBA 2K27 HACK | PC Tools & Guides',
     description:
-      'Learn what NBA 2K27 HACK publishes—Elite hack tiers, utilities, patch status, and setup guides for MyCareer, Park, and Rec players on PC.',
+      'Live patch status, loader updates, and operator notes for NBA 2K27 HACK—what we publish, how support works, and setup guides for PC MyCareer, Park, and Rec.',
   },
   '/support/': {
     title: 'Support & Contact | NBA 2K27 HACK',

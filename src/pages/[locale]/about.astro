@@ -13,6 +13,7 @@ import LegalPage from '../../components/LegalPage.astro';
 import { breadcrumbSchema, organizationSchema, webPageSchema } from '../../utils/schema';
 
 const content = t.legalPages.about;
+const pageHeading = locale === 'en' ? 'About NBA 2K27 HACK — Status' : content.title;
 ---
 
 
@@ -22,8 +23,8 @@ const content = t.legalPages.about;
   jsonLd={[
     organizationSchema(),
     webPageSchema({
-      name: content.title,
-      description: content.description,
+      name: pageHeading,
+      description: seo.description,
       url: '/about/',
     }),
     breadcrumbSchema([
@@ -33,7 +34,7 @@ const content = t.legalPages.about;
   ]}
 >
   <LegalPage
-    title={content.title}
+    title={pageHeading}
     description={content.description}
     breadcrumbLabel="About"
     sections={content.sections}
