@@ -1,6 +1,7 @@
 ---
 import '../styles/hack-menu-section.css';
 import { getTranslations } from '../i18n';
+import { checkoutPath } from '../config/checkout';
 
 import { pageLocale } from '../utils/locale';
 
@@ -12,6 +13,7 @@ import { Button } from '@/components/starwind/button';
 import Icon from './icons/Icon.astro';
 
 const m = t.hackMenu;
+const buyHref = checkoutPath('nba2k27');
 
 const previewByTab: Record<string, string> = {
   shooting: nbaGameplayImages.autoGreenShot,
@@ -123,8 +125,8 @@ const defaultTab = m.tabs[0]?.id ?? 'shooting';
     </div>
 
     <div class="hack-menu__ctas">
-      <Button as="a" href={m.ctaPrimaryHref} variant="primary" size="lg" class="rounded-xl">
-        {m.ctaPrimary}
+      <Button as="a" href={buyHref} variant="primary" size="lg" class="rounded-xl" data-external-cta>
+        {t.hero.ctaBuy}
         <Icon name="arrowRight" size={18} />
       </Button>
       <Button as="a" href={m.ctaSecondaryHref} variant="secondary" size="lg" class="rounded-xl">

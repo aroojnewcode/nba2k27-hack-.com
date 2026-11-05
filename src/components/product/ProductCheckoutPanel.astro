@@ -117,8 +117,7 @@ const isSinglePlan = plans.length === 1;
 
         totalEl.textContent = `$${plan.priceUsd}`;
         noteEl.textContent = plan.priceNote;
-        const separator = buyUrl.includes('?') ? '&' : '?';
-        buyBtn.href = `${buyUrl}${separator}plan=${plan.id}`;
+        buyBtn.href = buyUrl;
       };
 
       group.addEventListener('click', () => window.setTimeout(sync, 0));

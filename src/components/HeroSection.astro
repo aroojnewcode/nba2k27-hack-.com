@@ -1,12 +1,12 @@
 ---
 import '../styles/hero-section.css';
 import { discordInviteUrl } from '../config/discord';
+import { checkoutPath } from '../config/checkout';
 import { getTranslations } from '../i18n';
-import { localizedRoute, ROUTES } from '../utils/path';
 import { pageLocale } from '../utils/locale';
 
 const locale = pageLocale(Astro);
-const productsHref = localizedRoute(locale, ROUTES.products);
+const buyHref = checkoutPath('nba2k27');
 import { homeHeroBackground, homeHeroSlides } from '../data/heroImages';
 import { compatibilityIcons, heroStatIcons, heroStatusPills } from '../data/sectionIcons';
 import { webpSrc, HERO_IMAGE_WIDTHS } from '../utils/responsiveImage';
@@ -55,13 +55,13 @@ const heroMarqueePills = [
         <div class="flex flex-wrap justify-start gap-3 sm:gap-4">
           <Button
             as="a"
-            href={productsHref}
-            data-scroll-target="products"
-            variant="outline"
+            href={buyHref}
+            variant="primary"
             size="lg"
             class="hero-section__cta-outline rounded-xl"
+            data-external-cta
           >
-            {h.ctaPrimary}
+            {h.ctaBuy}
             <Icon name="arrowRight" size={18} />
           </Button>
           <Button

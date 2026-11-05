@@ -1,6 +1,7 @@
 ---
 import '../styles/workflow-section.css';
 import { getTranslations } from '../i18n';
+import { checkoutPath } from '../config/checkout';
 
 import { pageLocale } from '../utils/locale';
 
@@ -8,6 +9,7 @@ const t = getTranslations(pageLocale(Astro));
 import { Button } from '@/components/starwind/button';
 
 const w = t.workflow;
+const buyHref = checkoutPath('nba2k27');
 ---
 
 <section id="workflow" class="workflow-section" aria-labelledby="workflow-title">
@@ -26,12 +28,13 @@ const w = t.workflow;
       <div class="workflow-section__cta-row">
         <Button
           as="a"
-          href={w.ctaHref}
+          href={buyHref}
           variant="primary"
           size="lg"
           class="workflow-section__cta rounded-xl"
+          data-external-cta
         >
-          {w.ctaLabel}
+          {t.hero.ctaBuy}
         </Button>
         <Button
           as="a"
